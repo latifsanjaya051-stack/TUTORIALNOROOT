@@ -35,6 +35,23 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             loadDefaultVideo();
+
+            const header = document.querySelector('header');
+            let lastScroll = 0;
+
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+                if (currentScroll > lastScroll && currentScroll > 80) {
+                    // scroll ke bawah -> sembunyikan navigasi
+                    header.classList.add('nav-hidden');
+                } else {
+                    // scroll ke atas -> tampilkan navigasi
+                    header.classList.remove('nav-hidden');
+                }
+
+                lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+            }, { passive: true });
         });
     </script>
 </head>
