@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bimbingan Tutorial Eksklusif</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        function extractYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return match && match[2].length === 11 ? match[2] : null;
+        }
+
+        function loadVideo(targetId, videoUrl) {
+            const el = document.getElementById(targetId);
+            const videoId = extractYouTubeId(videoUrl);
+            if (el && videoId) {
+                el.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 12px; aspect-ratio: 16/9;"></iframe>`;
+            }
+        }
+
+        function loadDefaultVideo() {
+            // URL video BLACKBOX (bagian hero)
+            const blackboxUrl = "https://youtu.be/nFo4WVc9ZX4?si=lo-ekDOfVK6zr8ZT";
+            // URL video GAMEASSISTENT (ganti dengan link YouTube GAMEASSISTENT Anda)
+            const gameassistentUrl = "https://youtu.be/XmzBGlpB5Eg?si=SEooZMPBqBpqjsly";
+            // URL video paling bawah — variabel terpisah, bisa diubah manual link-nya
+            const bottomVideoUrl = "https://youtu.be/nFo4WVc9ZX4?si=lo-ekDOfVK6zr8ZT";
+
+            loadVideo('videoPreview', blackboxUrl);
+            loadVideo('videoPreview2', gameassistentUrl);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDefaultVideo();
+        });
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <div class="logo">TUTORIAL <span>ROOT & NO ROOT</span></div>
+            <nav>
+                <a href="#kurikulum" class="hologram-icon" aria-label="Indeks Materi">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                    </svg>
+                    <span class="hologram-text">BUY KEY SOLANA</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+                <a href="https://www.bangkitstore.com" target="_blank" rel="noopener noreferrer" class="btn-secondary cart-icon" aria-label="Mulai Belajar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <h1>FAHAMI VIDEO TUTORIAL</h1>
+                <div class="hero-note">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <p><span class="hl">NO ROOT</span> tersedia dalam <span class="hl">2 METODE</span>. Bebas pilih metode mana pun, sesuaikan dengan kemampuan HP kamu. Kekurangan &amp; kelebihan masing-masing sudah tertulis di bawah deskripsi <span class="hl-warn">LANDING PAGE</span> bahan tersebut.</p>
+                </div>
+                <div class="hero-buttons">
+            
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <h3 class="section-title title-box">TUTORIAL NO ROOT BLACKBOX</h3>
+                
+                <div class="video-preview" id="videoPreview">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="download-links">
+                    <a href="https://www.mediafire.com/file/lu1sp4kodtslaqh/CONTAINER_BLACKBOX_4.5.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-primary">UNDUH BLACKBOX CONTAINER</a>
+                    <a href="https://www.mediafire.com/file/avpgikf5ymwu6vc/SOLANA_PRO_V13.0.0.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-secondary">UNDUH LOADER SOLANA PRO</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="fitur" class="features">
+        <div class="container">
+            <h2 class="section-title">ATURAN BLACKBOX</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <img src="https://i.ibb.co.com/whMQdx2R/6300970924974917944-119.jpg" alt="Premium Video" class="feature-card-img">
+                    <h3>PERATURAN!!</h3>
+                    <p>Ingat !!Ketika ada update pubg,, bisa update saja, tetapi kalian jgn langsung buat main, Usahakan wajib relog kembali , dan tolong lebih teliti lagi klo ada file masuk di loby..</p>
+                </div>
+
+                <div class="feature-card info-card">
+                    <div class="info-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    </div>
+                    <h3 class="elegant-title">INFORMASI PENTING</h3>
+                    <p>MESKIPUN <span class="hl">BLACKBOX CONTAINER</span> INI SUPORT UR DAN <span class="hl">5 MATCH WAJIB RELOG</span>, BLACKBOX INI TERGOLONG LEBIH BERAT DARI PADA GAMEASSISTENT, JADI UNTUK HP ENTRY LEVEL DI BAWAH <span class="hl-warn">RAM 6</span> REKOMENDASI GUNAKAN SAJA CONTAINER GAME ASSISTENT YANG ADA DI BAWAH</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kurikulum" class="curriculum">
+        <div class="container">
+            <div class="hero-image">
+                <h3 class="section-title title-box">TUTORIAL NO ROOT GAMEASSISTENT</h3>
+                
+                <div class="video-preview" id="videoPreview2">
+                    <div class="play-button"></div>
+                </div>
+                
+                <div class="download-links">
+                    <a href="https://www.mediafire.com/file/hqfk701o8dibqn5/SOLANA_CONTAINER_V4.5.1_REV1.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-primary">UNDUH GAMEASSISTENT CONTAINER</a>
+                    <a href="https://www.mediafire.com/file/avpgikf5ymwu6vc/SOLANA_PRO_V13.0.0.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-secondary">UNDUH LOADER SOLANA PRO</a>
+                </div>
+            </div>
+
+            <section id="fitur2" class="features">
+                <div class="container">
+                    <div class="feature-card info-card">
+                        <h3 class="elegant-title">PERSYARATAN WAJIB SUPAYA GA EROR</h3>
+                        <p class="info-intro">Sebelum eksekusi apk mas bangkit, pastikan hal berikut sudah dipenuhi:</p>
+                        <ul class="info-list">
+                            <li>Sisakan penyimpanan minimal <strong>40%</strong></li>
+                            <li>PUBG wajib <strong>original Play Store</strong> — jangan gunakan PUBG APK mod / OBB mod, data harus sudah original</li>
+                            <li>Copot SD Card / Memory Card (jika tidak tahu itu apa, cari di Google)</li>
+                        </ul>
+                        <p class="info-note">Simak pelan-pelan, gausah buru-buru. Sertakan video jika ada kendala — rekam bagian mana yang bermasalah.</p>
+                    </div>
+
+                    <h2 class="section-title">ATURAN GAMEASSISTENT</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <img src="https://i.ibb.co.com/whMQdx2R/6300970924974917944-119.jpg" alt="Premium Video" class="feature-card-img">
+                            <h3>PERATURAN!!</h3>
+                            <p>Ingat !!Ketika ada update pubg,, bisa update saja, tetapi kalian jgn langsung buat main, Usahakan wajib relog kembali , dan tolong lebih teliti lagi klo ada file masuk di loby..</p>
+                        </div>
+
+                        <div class="feature-card info-card">
+                            <div class="info-badge">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                </svg>
+                            </div>
+                            <h3 class="elegant-title">INFORMASI PENTING</h3>
+                            <p>MESKIPUN <span class="hl">GAMEASSISTENT CONTAINER</span> INI LEBIH RINGAN DAN <span class="hl">SETIAP 1 MATCH WAJIB RELOG</span>, GAMEASSISTENT INI TERGOLONG LEBIH RINGAN DARI PADA BLACKBOX, JADI UNTUK HP ENTRY LEVEL SANGAT COCOK <span class="hl-warn">MIN RAM 6</span> CUMA TIDAK SUPORT UR</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </section>
+
+    <section class="curriculum">
+        <div class="container">
+            <div class="hero-image">
+                <h3 class="section-title title-box">TUTORIAL UNTUK DEVICE ROOT</h3>
+                
+                <div class="feature-card info-card root-card">
+                    <div class="info-badge root-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z"></path>
+                            <path d="M9 21h6"></path>
+                            <path d="M10 17v4"></path>
+                            <path d="M14 17v4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="elegant-title">INFORMASI MEMBER ROOT</h3>
+                    <p class="root-intro">Hubungi owner langsung <span class="hl">untuk meminta bahan &amp; video tutorial pemasangan plugin di HP ROOT</span> supaya tidak salah pakai.</p>
+                    <ul class="root-list">
+                        <li><span class="root-dot"></span> Penggunaan tanpa bimbingan <span class="hl-warn">bisa berakibat fatal pada keamanan</span></li>
+                        <li><span class="root-dot"></span> Minimal <span class="hl">RAM 4</span> untuk device ROOT</li>
+                        <li><span class="root-dot"></span> Mau support UR? Gunakan <span class="hl-warn">ROOT MAGISK V30000+</span> saja</li>
+                    </ul>
+                    <p class="root-note">Hubungi Telegram di bawah ini untuk akses penuh member ROOT.</p>
+                </div>
+                
+                <div class="download-links">
+                    <a href="https://t.me/trcbangkit" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M21.94 4.66a1.27 1.27 0 0 0-1.34-.2L3.16 11.4c-.96.38-.94 1.74.04 2.08l4.36 1.4 1.66 5.06c.28.85 1.39 1.07 2.04.43l2.4-2.32 4.2 3.1c.7.52 1.7.13 1.9-.73l3.04-13.1a1.27 1.27 0 0 0-.82-1.46zM9.6 14.06l8.06-5.04-6.36 6.04c-.18.17-.32.4-.4.66l-.5 1.92-1.2-3.58z"/>
+                        </svg>
+                        TELEGRAM
+                    </a>
+                    <a href="https://www.mediafire.com/file/avpgikf5ymwu6vc/SOLANA_PRO_V13.0.0.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-secondary">UNDUH LOADER SOLANA PRO</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 bangkitstore. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
