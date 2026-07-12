@@ -36,6 +36,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadDefaultVideo();
 
+            // Overlay animasi pembuka: hilang otomatis setelah 5 detik
+            const overlay = document.getElementById('introOverlay');
+            if (overlay) {
+                setTimeout(function() {
+                    overlay.classList.add('intro-hidden');
+                    overlay.addEventListener('transitionend', function() {
+                        overlay.remove();
+                    }, { once: true });
+                }, 5000);
+            }
+
             const header = document.querySelector('header');
             let lastScroll = 0;
 
@@ -56,6 +67,26 @@
     </script>
 </head>
 <body>
+
+    <!-- Overlay animasi pembuka (5 detik) -->
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-particles">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="intro-inner">
+            <div class="intro-ring">
+                <span class="intro-orbit intro-orbit-1"></span>
+                <span class="intro-orbit intro-orbit-2"></span>
+                <span class="intro-orbit intro-orbit-3"></span>
+            </div>
+            <div class="intro-logo">TUTORIAL <span>ROOT &amp; NO ROOT</span></div>
+            <div class="intro-tagline">MINIMAL MEMBACA, MEMAHAMI, MELIHAT DENGAN BENAR…</div>
+            <div class="intro-progress">
+                <div class="intro-progress-bar"></div>
+            </div>
+        </div>
+    </div>
 
     <header>
         <div class="container nav-container">
@@ -93,6 +124,35 @@
                         <line x1="12" y1="8" x2="12.01" y2="8"></line>
                     </svg>
                     <p><span class="hl">NO ROOT</span> tersedia dalam <span class="hl">2 METODE</span>. Bebas pilih metode mana pun, sesuaikan dengan kemampuan HP kamu. Kekurangan &amp; kelebihan masing-masing sudah tertulis di bawah deskripsi <span class="hl-warn">LANDING PAGE</span> bahan tersebut.</p>
+                </div>
+
+                <div class="method-cards">
+                    <div class="method-card method-card-blackbox">
+                        <div class="method-head">
+                            <span class="method-badge method-badge-blackbox">01</span>
+                            <h3>BLACKBOX CONTAINER</h3>
+                        </div>
+                        <p class="method-desc">Cocok untuk HP dengan spesifikasi lebih tinggi. Support <span class="hl">UR</span> dan lebih berat dari GameAssistent.</p>
+                        <ul class="method-list">
+                            <li><span class="ok">✔</span> Support UR</li>
+                            <li><span class="ok">✔</span> 5 match wajib relog</li>
+                            <li><span class="ok">✔</span> Rekomendasi RAM di atas 6</li>
+                            
+                        </ul>
+                    </div>
+
+                    <div class="method-card method-card-game">
+                        <div class="method-head">
+                            <span class="method-badge method-badge-game">02</span>
+                            <h3>GAMEASSISTENT</h3>
+                        </div>
+                        <p class="method-desc">Lebih ringan, cocok untuk HP entry level. Tidak support UR namun stabil untuk harian.</p>
+                        <ul class="method-list">
+                            <li><span class="ok">✔</span> Lebih ringan &amp; hemat RAM</li>
+                            <li><span class="warn">!</span> 1 match wajib relog</li>
+                            <li><span class="ok">✔</span> Cocok minimal RAM 6</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="hero-buttons">
             
@@ -159,11 +219,13 @@
                 <div class="container">
                     <div class="feature-card info-card">
                         <h3 class="elegant-title">PERSYARATAN WAJIB SUPAYA GA EROR</h3>
-                        <p class="info-intro">Sebelum eksekusi apk mas bangkit, pastikan hal berikut sudah dipenuhi:</p>
+                        <p class="info-intro">Sebelum eksekusi GAMEASSISTENT, pastikan hal berikut sudah dipenuhi:</p>
                         <ul class="info-list">
                             <li>Sisakan penyimpanan minimal <strong>40%</strong></li>
                             <li>PUBG wajib <strong>original Play Store</strong> — jangan gunakan PUBG APK mod / OBB mod, data harus sudah original</li>
                             <li>Copot SD Card / Memory Card (jika tidak tahu itu apa, cari di Google)</li>
+                            <li><strong>SETIAP 1 MATCH WAJIB RELOG</strong> — jangan langsung main lagi setelah match selesai</li>
+                            <li><strong>WAJIB MENGGUNAKAN DATA</strong> supaya ga eror dan setabil (hindari WiFi yang tidak stabil)</li>
                         </ul>
                         <p class="info-note">Simak pelan-pelan, gausah buru-buru. Sertakan video jika ada kendala — rekam bagian mana yang bermasalah.</p>
                     </div>
