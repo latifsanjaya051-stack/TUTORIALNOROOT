@@ -93,7 +93,22 @@
 
     <header>
         <div class="container nav-container">
-            <div class="logo">TUTORIAL <span>ROOT & NO ROOT</span></div>
+            <a href="#" class="logo" aria-label="Tutorial Root & No Root">
+                <svg class="logo-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="34" height="34" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#38bdf8"/>
+                            <stop offset="50%" stop-color="#818cf8"/>
+                            <stop offset="100%" stop-color="#34d399"/>
+                        </linearGradient>
+                    </defs>
+                    <polygon class="logo-hex" points="24,3 42,13 42,35 24,45 6,35 6,13" fill="none" stroke="url(#logoGrad)" stroke-width="2.5"/>
+                    <polygon class="logo-hex-inner" points="24,11 34,17 34,31 24,37 14,31 14,17" fill="none" stroke="url(#logoGrad)" stroke-width="1.5" opacity="0.6"/>
+                    <circle class="logo-core" cx="24" cy="24" r="4" fill="url(#logoGrad)"/>
+                    <circle class="logo-pulse" cx="24" cy="24" r="4" fill="none" stroke="url(#logoGrad)" stroke-width="1.5"/>
+                </svg>
+                <span class="logo-text">TUTORIAL<span class="logo-accent">VIP</span></span>
+            </a>
             <nav>
                 <a href="#kurikulum" class="hologram-icon" aria-label="Indeks Materi">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -120,6 +135,20 @@
         <div class="container hero-grid">
             <div class="hero-text">
                 <h1>FAHAMI VIDEO TUTORIAL</h1>
+                <div class="tutorial-nav">
+                    <a href="#blackbox" class="tut-nav-btn tut-nav-blackbox">
+                        <svg class="tut-nav-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M9 3v2M5 3h4M13 21l3-7 5 2-3.5-8.5L16 5l-3 7-5-2 3 8z"></path>
+                        </svg>
+                        BLACKBOX CONTAINER 4.5
+                    </a>
+                    <a href="#kurikulum" class="tut-nav-btn tut-nav-game">
+                        <svg class="tut-nav-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M9 3v2M5 3h4M13 21l3-7 5 2-3.5-8.5L16 5l-3 7-5-2 3 8z"></path>
+                        </svg>
+                        GAME ASSISTENT 4.5
+                    </a>
+                </div>
                 <div class="hero-note">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <circle cx="12" cy="12" r="10"></circle>
@@ -161,125 +190,132 @@
             
                 </div>
             </div>
-            
-            <div class="hero-image">
-                <h3 class="section-title title-box">TUTORIAL NO ROOT BLACKBOX</h3>
-                
-                <div class="video-preview" id="videoPreview">
-                    <div class="play-button"></div>
-                </div>
-                
-                <div class="download-links">
-                    <a href="https://www.mediafire.com/file/lu1sp4kodtslaqh/CONTAINER_BLACKBOX_4.5.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-primary">UNDUH BLACKBOX CONTAINER</a>
-                    <a href="https://www.mediafire.com/file/avpgikf5ymwu6vc/SOLANA_PRO_V13.0.0.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-secondary">UNDUH LOADER SOLANA PRO</a>
-                    <a href="https://share.google/dOMvig8voIYE1ESc1" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-sizuku">UNDUH SIZUKU INI JIKA DI BUTUHKAN</a>
-                </div>
-            </div>
         </div>
     </section>
 
-    <section id="fitur" class="features">
+    <section id="blackbox-tutorial" class="tutorial-card-section">
         <div class="container">
-            <h2 class="section-title">ATURAN BLACKBOX</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <img src="https://i.ibb.co.com/whMQdx2R/6300970924974917944-119.jpg" alt="Premium Video" class="feature-card-img">
-                    <h3>PERATURAN!!</h3>
-                    <p>Ingat !!Ketika ada update pubg,, bisa update saja, tetapi kalian jgn langsung buat main, Usahakan wajib relog kembali , dan tolong lebih teliti lagi klo ada file masuk di loby..</p>
-                </div>
-
-                <div class="feature-card info-card">
-                    <div class="info-badge">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                        </svg>
+            <div class="tutorial-card">
+                <div class="hero-image" id="blackbox">
+                    <h3 class="section-title title-box">TUTORIAL NO ROOT BLACKBOX</h3>
+                    
+                    <div class="video-preview" id="videoPreview">
+                        <div class="play-button"></div>
                     </div>
-                    <h3 class="elegant-title">INFORMASI PENTING</h3>
-                    <p>MESKIPUN <span class="hl">BLACKBOX CONTAINER</span> INI SUPORT UR DAN <span class="hl">5 MATCH WAJIB RELOG</span>, BLACKBOX INI TERGOLONG LEBIH BERAT DARI PADA GAMEASSISTENT, JADI UNTUK HP ENTRY LEVEL DI BAWAH <span class="hl-warn">RAM 6</span> REKOMENDASI GUNAKAN SAJA CONTAINER GAME ASSISTENT YANG ADA DI BAWAH</p>
+                    
+                    <div class="download-links">
+                        <a href="https://www.mediafire.com/file/lu1sp4kodtslaqh/CONTAINER_BLACKBOX_4.5.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-primary">UNDUH BLACKBOX CONTAINER</a>
+                        <a href="https://www.mediafire.com/file/avpgikf5ymwu6vc/SOLANA_PRO_V13.0.0.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-secondary">UNDUH LOADER SOLANA PRO</a>
+                        <a href="https://share.google/dOMvig8voIYE1ESc1" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-sizuku">UNDUH SIZUKU INI JIKA DI BUTUHKAN</a>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats">
-                <div class="stat">
-                    <span class="stat-number" data-target="2" data-suffix=" Metode">0</span>
-                    <span class="stat-label">METODE NO ROOT</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" data-target="6" data-suffix=" GB">0</span>
-                    <span class="stat-label">MINIMAL RAM</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" data-target="90" data-suffix="%">0</span>
-                    <span class="stat-label">AMAN & TERUJI</span>
-                    <span class="stat-note">Sisanya tergantung gameplay &amp; mode yang Anda gunakan</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" data-target="24" data-suffix="/7">0</span>
-                    <span class="stat-label">BANTUAN MEMBER</span>
-                </div>
+                <section id="fitur" class="features">
+                    <div class="container">
+                        <h2 class="section-title">ATURAN BLACKBOX</h2>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <img src="https://i.ibb.co.com/whMQdx2R/6300970924974917944-119.jpg" alt="Premium Video" class="feature-card-img">
+                                <h3>PERATURAN!!</h3>
+                                <p>Ingat !!Ketika ada update pubg,, bisa update saja, tetapi kalian jgn langsung buat main, Usahakan wajib relog kembali , dan tolong lebih teliti lagi klo ada file masuk di loby..</p>
+                            </div>
+
+                            <div class="feature-card info-card">
+                                <div class="info-badge">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                    </svg>
+                                </div>
+                                <h3 class="elegant-title">INFORMASI PENTING</h3>
+                                <p>MESKIPUN <span class="hl">BLACKBOX CONTAINER</span> INI SUPORT UR DAN <span class="hl">5 MATCH WAJIB RELOG</span>, BLACKBOX INI TERGOLONG LEBIH BERAT DARI PADA GAMEASSISTENT, JADI UNTUK HP ENTRY LEVEL DI BAWAH <span class="hl-warn">RAM 6</span> REKOMENDASI GUNAKAN SAJA CONTAINER GAME ASSISTENT YANG ADA DI BAWAH</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="stats-section">
+                    <div class="container">
+                        <div class="stats">
+                            <div class="stat">
+                                <span class="stat-number" data-target="2" data-suffix=" Metode">0</span>
+                                <span class="stat-label">METODE NO ROOT</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" data-target="6" data-suffix=" GB">0</span>
+                                <span class="stat-label">MINIMAL RAM</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" data-target="90" data-suffix="%">0</span>
+                                <span class="stat-label">AMAN & TERUJI</span>
+                                <span class="stat-note">Sisanya tergantung gameplay &amp; mode yang Anda gunakan</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" data-target="24" data-suffix="/7">0</span>
+                                <span class="stat-label">BANTUAN MEMBER</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </section>
 
     <section id="kurikulum" class="curriculum">
         <div class="container">
-            <div class="hero-image">
-                <h3 class="section-title title-box">TUTORIAL NO ROOT GAMEASSISTENT</h3>
-                
-                <div class="video-preview" id="videoPreview2">
-                    <div class="play-button"></div>
-                </div>
-                
-                <div class="download-links">
-                    <a href="https://www.mediafire.com/file/hqfk701o8dibqn5/SOLANA_CONTAINER_V4.5.1_REV1.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-primary">UNDUH GAMEASSISTENT CONTAINER</a>
-                    <a href="https://www.mediafire.com/file/avpgikf5ymwu6vc/SOLANA_PRO_V13.0.0.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-secondary">UNDUH LOADER SOLANA PRO</a>
-                </div>
-            </div>
-
-            <section id="fitur2" class="features">
-                <div class="container">
-                    <div class="feature-card info-card">
-                        <h3 class="elegant-title">PERSYARATAN WAJIB SUPAYA GA EROR</h3>
-                        <p class="info-intro">Sebelum eksekusi GAMEASSISTENT, pastikan hal berikut sudah dipenuhi:</p>
-                        <ul class="info-list">
-                            <li>Sisakan penyimpanan minimal <strong>40%</strong></li>
-                            <li>PUBG wajib <strong>original Play Store</strong> — jangan gunakan PUBG APK mod / OBB mod, data harus sudah original</li>
-                            <li>Copot SD Card / Memory Card (jika tidak tahu itu apa, cari di Google)</li>
-                            <li><strong>SETIAP 1 MATCH WAJIB RELOG</strong> — jangan langsung main lagi setelah match selesai</li>
-                            <li><strong>WAJIB MENGGUNAKAN DATA</strong> supaya ga eror dan setabil (hindari WiFi yang tidak stabil)</li>
-                        </ul>
-                        <p class="info-note">Simak pelan-pelan, gausah buru-buru. Sertakan video jika ada kendala — rekam bagian mana yang bermasalah.</p>
+            <div class="tutorial-card tutorial-card-game">
+                <div class="hero-image">
+                    <h3 class="section-title title-box">TUTORIAL NO ROOT GAMEASSISTENT</h3>
+                    
+                    <div class="video-preview" id="videoPreview2">
+                        <div class="play-button"></div>
                     </div>
+                    
+                    <div class="download-links">
+                        <a href="https://www.mediafire.com/file/hqfk701o8dibqn5/SOLANA_CONTAINER_V4.5.1_REV1.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-primary">UNDUH GAMEASSISTENT CONTAINER</a>
+                        <a href="https://www.mediafire.com/file/avpgikf5ymwu6vc/SOLANA_PRO_V13.0.0.apk/file" target="_blank" rel="noopener noreferrer" class="download-btn download-btn-secondary">UNDUH LOADER SOLANA PRO</a>
+                    </div>
+                </div>
 
-                    <h2 class="section-title">ATURAN GAMEASSISTENT</h2>
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <img src="https://i.ibb.co.com/whMQdx2R/6300970924974917944-119.jpg" alt="Premium Video" class="feature-card-img">
-                            <h3>PERATURAN!!</h3>
-                            <p>Ingat !!Ketika ada update pubg,, bisa update saja, tetapi kalian jgn langsung buat main, Usahakan wajib relog kembali , dan tolong lebih teliti lagi klo ada file masuk di loby..</p>
-                        </div>
-
+                <section id="fitur2" class="features">
+                    <div class="container">
                         <div class="feature-card info-card">
-                            <div class="info-badge">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                </svg>
+                            <h3 class="elegant-title">PERSYARATAN WAJIB SUPAYA GA EROR</h3>
+                            <p class="info-intro">Sebelum eksekusi GAMEASSISTENT, pastikan hal berikut sudah dipenuhi:</p>
+                            <ul class="info-list">
+                                <li>Sisakan penyimpanan minimal <strong>40%</strong></li>
+                                <li>PUBG wajib <strong>original Play Store</strong> — jangan gunakan PUBG APK mod / OBB mod, data harus sudah original</li>
+                                <li>Copot SD Card / Memory Card (jika tidak tahu itu apa, cari di Google)</li>
+                                <li><strong>SETIAP 1 MATCH WAJIB RELOG</strong> — jangan langsung main lagi setelah match selesai</li>
+                                <li><strong>WAJIB MENGGUNAKAN DATA</strong> supaya ga eror dan setabil (hindari WiFi yang tidak stabil)</li>
+                            </ul>
+                            <p class="info-note">Simak pelan-pelan, gausah buru-buru. Sertakan video jika ada kendala — rekam bagian mana yang bermasalah.</p>
+                        </div>
+
+                        <h2 class="section-title">ATURAN GAMEASSISTENT</h2>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <img src="https://i.ibb.co.com/whMQdx2R/6300970924974917944-119.jpg" alt="Premium Video" class="feature-card-img">
+                                <h3>PERATURAN!!</h3>
+                                <p>Ingat !!Ketika ada update pubg,, bisa update saja, tetapi kalian jgn langsung buat main, Usahakan wajib relog kembali , dan tolong lebih teliti lagi klo ada file masuk di loby..</p>
                             </div>
-                            <h3 class="elegant-title">INFORMASI PENTING</h3>
-                            <p>MESKIPUN <span class="hl">GAMEASSISTENT CONTAINER</span> INI LEBIH RINGAN DAN <span class="hl">SETIAP 1 MATCH WAJIB RELOG</span>, GAMEASSISTENT INI TERGOLONG LEBIH RINGAN DARI PADA BLACKBOX, JADI UNTUK HP ENTRY LEVEL SANGAT COCOK <span class="hl-warn">MIN RAM 6</span> CUMA TIDAK SUPORT UR</p>
+
+                            <div class="feature-card info-card">
+                                <div class="info-badge">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                    </svg>
+                                </div>
+                                <h3 class="elegant-title">INFORMASI PENTING</h3>
+                                <p>MESKIPUN <span class="hl">GAMEASSISTENT CONTAINER</span> INI LEBIH RINGAN DAN <span class="hl">SETIAP 1 MATCH WAJIB RELOG</span>, GAMEASSISTENT INI TERGOLONG LEBIH RINGAN DARI PADA BLACKBOX, JADI UNTUK HP ENTRY LEVEL SANGAT COCOK <span class="hl-warn">MIN RAM 6</span> CUMA TIDAK SUPORT UR</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-
+                </section>
+            </div>
         </div>
     </section>
 
