@@ -209,6 +209,44 @@
         counters.forEach(function (c) { observer.observe(c); });
     }
 
+    /* ---------- 9. Efek kode jatuh (code rain background) ---------- */
+    function initSnow() {
+        if (prefersReducedMotion) return;
+
+        const layer = document.getElementById('snowLayer');
+        if (!layer) return;
+
+        const SNIPPETS = [
+            'function()', 'const x =', '=> { }', 'return;', 'import { }',
+            'console.log', 'await fetch', 'if (true)', 'for (i++)', '=> void',
+            'let a = 0', 'class {}', 'try {}', 'catch(e)', 'null;', 'true;',
+            '0x1F', '&& ||', '===', '!==', 'async', 'yield', 'map()', 'filter',
+            '</>', '{}', '[]', '=>', ';', '#', '$', '&&', '||', '=='
+        ];
+        const COUNT = 60;
+        const fragment = document.createDocumentFragment();
+
+        for (let i = 0; i < COUNT; i++) {
+            const flake = document.createElement('span');
+            const text = SNIPPETS[Math.floor(Math.random() * SNIPPETS.length)];
+            const left = Math.random() * 100;            // posisi horizontal %
+            const duration = Math.random() * 9 + 7;      // 7s - 16s
+            const delay = Math.random() * 12;            // penundaan acak
+            const drift = (Math.random() * 80 - 40) + 'px'; // ayunan horizontal
+
+            flake.textContent = text;
+            flake.style.left = left + '%';
+            flake.style.opacity = (Math.random() * 0.5 + 0.35).toFixed(2);
+            flake.style.animationDuration = duration + 's';
+            flake.style.animationDelay = '-' + delay + 's';
+            flake.style.setProperty('--drift', drift);
+
+            fragment.appendChild(flake);
+        }
+
+        layer.appendChild(fragment);
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         initScrollReveal();
         initBackToTop();
@@ -218,5 +256,6 @@
         initToast();
         initActiveNav();
         initCounters();
+        initSnow();
     });
 })();
