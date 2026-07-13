@@ -9,12 +9,45 @@ body {
     font-family: 'Inter', sans-serif;
     color: #ffffff;
     line-height: 1.6;
-    background-color: #0b1120;
+    background-color: #0a1428;
     background-image:
-        radial-gradient(1200px 600px at 15% -10%, rgba(37, 99, 235, 0.18), transparent 60%),
-        radial-gradient(1000px 500px at 100% 0%, rgba(56, 189, 248, 0.12), transparent 55%);
+        radial-gradient(1200px 700px at 50% -20%, rgba(186, 230, 253, 0.18), transparent 60%),
+        radial-gradient(900px 600px at 100% 0%, rgba(125, 211, 252, 0.12), transparent 55%),
+        linear-gradient(180deg, #0b1b3a 0%, #0a1428 45%, #0d1b33 100%);
     background-attachment: fixed;
     scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* --- Lapisan Kode (Code Rain) --- */
+.snow-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.snow-layer span {
+    position: absolute;
+    top: -10px;
+    font-family: 'Courier New', ui-monospace, monospace;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    color: #7dd3fc;
+    text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+    opacity: 0.8;
+    animation: snowFall linear infinite;
+}
+
+@keyframes snowFall {
+    0%   { transform: translateY(-10px) translateX(0); }
+    100% { transform: translateY(105vh) translateX(var(--drift, 20px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .snow-layer { display: none; }
 }
 
 .container {
