@@ -917,6 +917,12 @@ nav a:hover {
     background-color: transparent;
 }
 
+/* --- Stats Section (counters) --- */
+.stats-section {
+    padding: 1rem 0 1.5rem;
+    background-color: transparent;
+}
+
 .section-title {
     text-align: center;
     font-size: 2rem;
@@ -1278,4 +1284,213 @@ footer {
     .btn-download-primary, .btn-download-outline {
         width: 100%;
     }
+}
+
+/* ============================================================
+   Interaksi JS tambahan — animasi & elemen hidup
+   ============================================================ */
+
+/* --- Scroll Reveal (fade-up) --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    will-change: opacity, transform;
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* --- Tombol Kembali ke Atas --- */
+.back-to-top {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    box-shadow: 0 10px 24px -8px rgba(37, 99, 235, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.85);
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease, box-shadow 0.3s ease;
+    z-index: 200;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.back-to-top:hover {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    box-shadow: 0 14px 30px -8px rgba(37, 99, 235, 0.8);
+    transform: translateY(-3px) scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .back-to-top {
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+        transform: none;
+    }
+}
+
+/* --- Cahaya kursor mengikuti mouse --- */
+.cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 320px;
+    margin: -160px 0 0 -160px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.18), rgba(129, 140, 248, 0.08) 40%, transparent 70%);
+    mix-blend-mode: screen;
+    transition: opacity 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cursor-glow { display: none; }
+}
+
+/* --- Efek mengetik pada judul hero --- */
+.hero-text h1.typing::after {
+    content: "";
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    margin-left: 4px;
+    vertical-align: -0.12em;
+    background: #7dd3fc;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+    animation: caretBlink 0.8s steps(1) infinite;
+}
+
+@keyframes caretBlink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+}
+
+/* --- Efek 3D tilt pada kartu --- */
+.tilt {
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease, box-shadow 0.3s ease;
+}
+
+/* --- Toast notifikasi --- */
+.toast-container {
+    position: fixed;
+    left: 50%;
+    bottom: 2rem;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    z-index: 300;
+    pointer-events: none;
+}
+
+.toast {
+    padding: 0.8rem 1.4rem;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #f8fafc;
+    background: rgba(17, 24, 39, 0.92);
+    border: 1px solid rgba(96, 165, 250, 0.5);
+    box-shadow: 0 12px 28px -10px rgba(37, 99, 235, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Sorot navigasi aktif --- */
+nav a.active {
+    color: #60a5fa;
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+nav a.active::after {
+    content: "";
+    display: block;
+    height: 2px;
+    margin-top: 4px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #3b82f6, #38bdf8);
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
+}
+
+/* --- Baris statistik (counters) --- */
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem auto 2.5rem auto;
+}
+
+.stat {
+    text-align: center;
+    min-width: 120px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1;
+    background: linear-gradient(90deg, #60a5fa, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.stat-label {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: #cbd5e1;
+}
+
+.stat-note {
+    display: block;
+    margin-top: 0.35rem;
+    max-width: 180px;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    color: #94a3b8;
+    font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-text h1.typing::after { animation: none; }
 }
