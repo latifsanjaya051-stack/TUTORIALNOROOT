@@ -247,6 +247,54 @@
         layer.appendChild(fragment);
     }
 
+    /* ---------- 10. Hamburger Menu (Mobile) ---------- */
+    function initMobileNav() {
+        const toggle = document.getElementById('navToggle');
+        const nav = document.getElementById('primaryNav');
+        if (!toggle || !nav) return;
+
+        function close() {
+            toggle.classList.remove('is-open');
+            nav.classList.remove('is-open');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Buka menu');
+        }
+
+        toggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const isOpen = nav.classList.toggle('is-open');
+            toggle.classList.toggle('is-open', isOpen);
+            toggle.setAttribute('aria-expanded', String(isOpen));
+            toggle.setAttribute('aria-label', isOpen ? 'Tutup menu' : 'Buka menu');
+        });
+
+        // Tutup menu saat klik link di dalam nav
+        nav.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () { close(); });
+        });
+
+        // Tutup menu saat klik di luar header
+        document.addEventListener('click', function (e) {
+            if (!nav.classList.contains('is-open')) return;
+            const header = document.querySelector('header');
+            if (header && !header.contains(e.target)) close();
+        });
+
+        // Tutup menu saat resize ke desktop
+        let resizeTimer;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                if (window.innerWidth > 820) close();
+            }, 150);
+        });
+
+        // Tutup menu dengan Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && nav.classList.contains('is-open')) close();
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         initScrollReveal();
         initBackToTop();
@@ -257,5 +305,6 @@
         initActiveNav();
         initCounters();
         initSnow();
+        initMobileNav();
     });
 })();
