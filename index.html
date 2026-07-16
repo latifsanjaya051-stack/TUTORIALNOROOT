@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
+        // Terapkan tema tersimpan SEBELUM halaman dirender (anti-FOUC)
+        (function () {
+            try {
+                const saved = localStorage.getItem('theme');
+                const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+                const theme = saved || (prefersLight ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+
         function extractYouTubeId(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             const match = url.match(regExp);
@@ -35,6 +47,17 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             loadDefaultVideo();
+
+            // Toggle tema gelap/terang
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function () {
+                    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    try { localStorage.setItem('theme', next); } catch (e) { /* storage tidak tersedia */ }
+                });
+            }
 
             // Overlay animasi pembuka: hilang otomatis setelah 5 detik
             const overlay = document.getElementById('introOverlay');
@@ -91,6 +114,40 @@
         </div>
     </div>
 
+    <!-- Top Notification Bar: Bahan Terupdate (di luar navbar, looping) -->
+    <div class="top-notif" id="topNotif" role="status" aria-live="polite">
+        <div class="top-notif-track">
+            <div class="top-notif-content">
+                <span class="top-notif-dot" aria-hidden="true"></span>
+                <span class="top-notif-badge">NEW</span>
+                <svg class="top-notif-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 12a9 9 0 11-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+                    <polyline points="21 3 21 8 16 8"></polyline>
+                </svg>
+                <span class="top-notif-text">Bahan ROOT / NO ROOT sudah Terupdate</span>
+                <span class="top-notif-sep" aria-hidden="true">•</span>
+                <span class="top-notif-text">Check sekarang untuk versi terbaru</span>
+                <span class="top-notif-sep" aria-hidden="true">•</span>
+                <span class="top-notif-text">BLACKBOX CONTAINER 4.5 &amp; GAMEASSISTENT 4.5</span>
+                <span class="top-notif-sep" aria-hidden="true">jangan lupa feedback</span>
+            </div>
+            <div class="top-notif-content" aria-hidden="true">
+                <span class="top-notif-dot" aria-hidden="true"></span>
+                <span class="top-notif-badge">NEW</span>
+                <svg class="top-notif-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 12a9 9 0 11-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+                    <polyline points="21 3 21 8 16 8"></polyline>
+                </svg>
+                <span class="top-notif-text">Bahan Tutorial Terupdate</span>
+                <span class="top-notif-sep" aria-hidden="true">•</span>
+                <span class="top-notif-text">Check sekarang untuk versi terbaru</span>
+                <span class="top-notif-sep" aria-hidden="true">•</span>
+                <span class="top-notif-text">BLACKBOX CONTAINER 4.5 &amp; GAMEASSISTENT 4.5</span>
+                <span class="top-notif-sep" aria-hidden="true">•</span>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="container nav-container">
             <a href="#" class="logo" aria-label="Tutorial Root & No Root">
@@ -109,24 +166,33 @@
                 </svg>
                 <span class="logo-text">TUTORIAL<span class="logo-accent">VIP</span></span>
             </a>
-            <nav>
-                <a href="#kurikulum" class="hologram-icon" aria-label="Indeks Materi">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
-                    </svg>
-                    <span class="hologram-text">BUY KEY SOLANA</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </a>
-                <a href="https://www.bangkitstore.com" target="_blank" rel="noopener noreferrer" class="btn-secondary cart-icon" aria-label="Mulai Belajar">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <button id="navToggle" class="nav-toggle" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="primaryNav">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+            <nav id="primaryNav" class="primary-nav">
+                <a href="https://www.bangkitstore.com" target="_blank" rel="noopener noreferrer" class="hologram-icon cart-icon buy-key-btn" aria-label="Buy Key Solana">
+                    <svg class="buy-key-cart" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <circle cx="9" cy="21" r="1"></circle>
                         <circle cx="20" cy="21" r="1"></circle>
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                     </svg>
+                    <span class="hologram-text">BUY KEY SOLANA</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
                 </a>
+                <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle tema gelap/terang" title="Toggle tema">
+                    <svg class="theme-icon theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <svg class="theme-icon theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
             </nav>
         </div>
     </header>
@@ -299,6 +365,43 @@
                                 <img src="https://i.ibb.co.com/whMQdx2R/6300970924974917944-119.jpg" alt="Premium Video" class="feature-card-img">
                                 <h3>PERATURAN!!</h3>
                                 <p>Ingat !!Ketika ada update pubg,, bisa update saja, tetapi kalian jgn langsung buat main, Usahakan wajib relog kembali , dan tolong lebih teliti lagi klo ada file masuk di loby..</p>
+                            </div>
+                            <div class="feature-card info-card">
+                                <div class="info-badge">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                    </svg>
+                                </div>
+                                <img src="https://i.ibb.co.com/gZmjm8V7/6172623781617143093-121.jpg" alt="Premium Video" class="feature-card-img">
+                                <h3 class="elegant-title">TIPS KEAMANAN NON-ROOT</h3>
+                                <p class="tip-intro">Untuk menjaga keamanan akun dan meminimalkan jejak penggunaan plugin, disarankan melakukan <strong>Repair Environment</strong> secara rutin. Fitur ini berfungsi untuk membersihkan environment pada container sehingga sisa jejak penggunaan plugin dapat dihapus.</p>
+
+                                <div class="tip-section">
+                                    <h4 class="tip-subtitle">Rekomendasi Waktu Melakukan Repair Environment</h4>
+                                    <p class="tip-desc">Lakukan minimal <strong>1 kali sehari</strong>, atau pada kondisi berikut:</p>
+                                    <ol class="tip-list">
+                                        <li>Setelah terdapat update patch saat login.</li>
+                                        <li>Setelah bermain secara brutal atau penggunaan plugin berlebihan <span class="hl-warn">(disarankan tetap menggunakan plugin secara bijak)</span>.</li>
+                                        <li>Ketika akun mengalami <span class="hl-warn">banned</span>, wajib melakukan Repair Environment sebelum mencoba kembali.</li>
+                                    </ol>
+                                </div>
+
+                                <div class="tip-section">
+                                    <h4 class="tip-subtitle">Cara Melakukan Repair Environment</h4>
+                                    <ol class="tip-list">
+                                        <li>Tahan ikon game pada container GameAssistant.</li>
+                                        <li>Pilih opsi <strong>"Repair Environment"</strong>.</li>
+                                    </ol>
+                                </div>
+
+                                <div class="tip-section">
+                                    <h4 class="tip-subtitle">Efek Samping</h4>
+                                    <p class="tip-desc">Setelah melakukan Repair Environment, pembukaan game pertama kemungkinan akan mengalami <span class="hl-warn">crash</span>. Hal ini <strong>normal</strong> karena environment sedang dibuat ulang. Silakan buka kembali game setelah crash, dan game akan berjalan normal.</p>
+                                </div>
+
+                                <p class="tip-closing">Gunakan plugin secara bijak</p>
                             </div>
 
                             <div class="feature-card info-card">
