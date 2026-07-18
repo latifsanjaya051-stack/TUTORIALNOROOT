@@ -777,7 +777,7 @@ footer { padding: 3rem 0; text-align: center; font-size: 0.92rem; background: rg
     position: fixed;
     inset: 0;
     z-index: 9998;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
@@ -787,7 +787,7 @@ footer { padding: 3rem 0; text-align: center; font-size: 0.92rem; background: rg
     opacity: 0;
     transition: opacity 0.35s ease;
 }
-.choice-modal:not([hidden]) { opacity: 1; }
+.choice-modal:not([hidden]) { display: flex; opacity: 1; }
 .choice-card {
     position: relative;
     width: 100%;
