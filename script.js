@@ -1,7 +1,5 @@
 /* ============================================================
-   script.js — Interaksi tambahan agar website lebih "hidup"
-   Semua fitur menghormati preferensi prefers-reduced-motion
-   dan perangkat layar sentuh (pointer: coarse).
+   script.js — Professional Interactions & UI Controllers
    ============================================================ */
 (function () {
     'use strict';
@@ -9,37 +7,142 @@
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
-    /* ---------- 1. Scroll Reveal (fade-up saat di-scroll) ---------- */
+    /* ---------- 1. Pemuat Video YouTube Efisiensi Tinggi ---------- */
+    function initVideoLoaders() {
+        function extractYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return match && match[2].length === 11 ? match[2] : null;
+        }
+
+        function loadVideo(targetId, videoUrl) {
+            const el = document.getElementById(targetId);
+            const videoId = extractYouTubeId(videoUrl);
+            if (el && videoId) {
+                el.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}" title="YouTube video tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 1rem; aspect-ratio: 16/9; display: block; background: #000;"></iframe>`;
+            }
+        }
+
+        loadVideo('videoPreview', "https://youtu.be/nFo4WVc9ZX4?si=lo-ekDOfVK6zr8ZT");
+        loadVideo('videoPreview2', "https://youtu.be/XmzBGlpB5Eg?si=SEooZMPBqBpqjsly");
+    }
+
+    /* ---------- 2. Generator Latar Belakang Partikel Dinamis ---------- */
+    function initDynamicSnow() {
+        const snowLayer = document.getElementById('snowLayer');
+        if (!snowLayer || prefersReducedMotion) return;
+
+        const symbols = ['1', '0', '•', '✦', '+', 'x', 'V', 'I', 'P'];
+        const count = window.innerWidth > 768 ? 30 : 15;
+
+        for (let i = 0; i < count; i++) {
+            const span = document.createElement('span');
+            span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            span.style.left = Math.random() * 100 + '%';
+            span.style.animationDuration = (Math.random() * 8 + 6) + 's';
+            span.style.animationDelay = (Math.random() * 5) + 's';
+            span.style.setProperty('--drift', (Math.random() * 80 - 40) + 'px');
+            snowLayer.appendChild(span);
+        }
+    }
+
+    /* ---------- 3. Intro Overlay Animation Controller ---------- */
+    function initIntroOverlay() {
+        const overlay = document.getElementById('introOverlay');
+        if (!overlay) return;
+
+        document.body.style.overflow = 'hidden';
+
+        function dismissOverlay() {
+            if (overlay.classList.contains('intro-hidden')) return;
+            overlay.classList.add('intro-hidden');
+            document.body.style.overflow = '';
+            setTimeout(function () {
+                if (overlay.parentNode) overlay.remove();
+            }, 700);
+        }
+
+        // Customer harus mengklik tombol "Masuk" sebelum masuk ke website.
+        // Overlay tidak lagi tertutup otomatis.
+        const enterBtn = document.getElementById('introEnterBtn');
+        if (enterBtn) {
+            enterBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                dismissOverlay();
+            });
+        }
+
+        // Izinkan juga menutup dengan tombol keyboard (Enter / Spasi / Escape)
+        overlay.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
+                e.preventDefault();
+                dismissOverlay();
+            }
+        });
+    }
+
+    /* ---------- 4. Scroll Reveal (Fade-Up Animation) ---------- */
     function initScrollReveal() {
-        const targets = document.querySelectorAll(
-            '.feature-card, .method-card, .download-links, .title-box, .info-card, .root-card, .section-title, .hero-note, .stat'
-        );
+        // Map selector -> reveal variant class
+        const map = [
+            ['.hero-note', 'reveal'],
+            ['.method-card', 'reveal'],
+            ['.tutorial-card', 'reveal-scale'],
+            ['.title-box', 'reveal'],
+            ['.section-title', 'reveal'],
+            ['.feature-card', 'reveal'],
+            ['.download-links', 'reveal'],
+            ['.stat', 'reveal'],
+            ['.root-card', 'reveal'],
+            ['.hero-visual', 'reveal-right'],
+            ['.glass-panel', 'reveal-right'],
+            ['.cta-card', 'reveal-scale']
+        ];
+
+        const targets = [];
+        map.forEach(function (pair) {
+            document.querySelectorAll(pair[0]).forEach(function (el) { targets.push([el, pair[1]]); });
+        });
 
         if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-            targets.forEach(function (t) { t.classList.add('revealed'); });
+            targets.forEach(function (t) { t[0].classList.add('revealed'); });
             return;
         }
 
         const observer = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
+                // Toggle on every scroll: animate in when visible, reset when out of view
                 if (entry.isIntersecting) {
                     entry.target.classList.add('revealed');
-                    observer.unobserve(entry.target);
+                } else {
+                    entry.target.classList.remove('revealed');
                 }
             });
-        }, { threshold: 0.15 });
+        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 
         targets.forEach(function (t) {
-            t.classList.add('reveal');
-            observer.observe(t);
+            const el = t[0];
+            const variant = t[1];
+            el.classList.add(variant);
+            // Stagger items that share a parent (grids / lists)
+            const parent = el.parentElement;
+            if (parent) {
+                const siblings = Array.prototype.filter.call(
+                    parent.children,
+                    function (c) { return c.classList.contains(variant); }
+                );
+                const idx = siblings.indexOf(el);
+                if (idx > 0) el.style.setProperty('--reveal-delay', (idx * 0.12) + 's');
+            }
+            observer.observe(el);
         });
     }
 
-    /* ---------- 2. Tombol Kembali ke Atas ---------- */
+    /* ---------- 5. Back to Top Button ---------- */
     function initBackToTop() {
         const btn = document.createElement('button');
         btn.className = 'back-to-top';
-        btn.setAttribute('aria-label', 'Kembali ke atas');
+        btn.setAttribute('aria-label', 'Kembali ke atas halaman');
         btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>';
         document.body.appendChild(btn);
 
@@ -56,7 +159,7 @@
         }, { passive: true });
     }
 
-    /* ---------- 3. Cahaya kursor mengikuti mouse ---------- */
+    /* ---------- 6. Cursor Glow Tracking ---------- */
     function initCursorGlow() {
         if (prefersReducedMotion || isTouch) return;
 
@@ -70,41 +173,40 @@
         window.addEventListener('mousemove', function (e) {
             tx = e.clientX;
             ty = e.clientY;
-        });
+        }, { passive: true });
 
         function loop() {
             x += (tx - x) * 0.15;
             y += (ty - y) * 0.15;
-            glow.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+            glow.style.transform = `translate(${x}px, ${y}px)`;
             requestAnimationFrame(loop);
         }
         loop();
     }
 
-    /* ---------- 4. Efek mengetik pada judul hero ---------- */
+    /* ---------- 7. Typing Effect pada Heading ---------- */
     function initTyping() {
-        const el = document.querySelector('.hero-text h1');
+        const el = document.querySelector('.hero h1');
         if (!el || prefersReducedMotion) return;
 
-        const text = el.textContent.trim();
+        const originalText = el.textContent.trim();
         el.textContent = '';
         el.classList.add('typing');
 
         let i = 0;
         function type() {
-            if (i <= text.length) {
-                el.textContent = text.slice(0, i);
+            if (i <= originalText.length) {
+                el.textContent = originalText.slice(0, i);
                 i++;
-                setTimeout(type, 70);
+                setTimeout(type, 55);
             } else {
                 el.classList.remove('typing');
             }
         }
-        // Mulai setelah overlay pembuka (5 detik) selesai
-        setTimeout(type, 5200);
+        setTimeout(type, 1000);
     }
 
-    /* ---------- 5. Efek 3D tilt pada kartu ---------- */
+    /* ---------- 8. 3D Tilt Effect pada Kartu ---------- */
     function initTilt() {
         if (prefersReducedMotion || isTouch) return;
 
@@ -115,7 +217,7 @@
                 const r = card.getBoundingClientRect();
                 const px = (e.clientX - r.left) / r.width - 0.5;
                 const py = (e.clientY - r.top) / r.height - 0.5;
-                card.style.transform = 'perspective(800px) rotateY(' + (px * 8) + 'deg) rotateX(' + (-py * 8) + 'deg) translateY(-4px)';
+                card.style.transform = `perspective(800px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg) translateY(-4px)`;
             });
             card.addEventListener('mouseleave', function () {
                 card.style.transform = '';
@@ -123,7 +225,7 @@
         });
     }
 
-    /* ---------- 6. Toast notifikasi saat klik unduhan ---------- */
+    /* ---------- 9. Toast Notification Handler ---------- */
     function initToast() {
         const container = document.createElement('div');
         container.className = 'toast-container';
@@ -143,37 +245,47 @@
 
         document.querySelectorAll('.download-btn').forEach(function (btn) {
             btn.addEventListener('click', function () {
-                showToast('Mengalihkan ke tautan unduhan…');
+                showToast('Mengalihkan ke server unduhan resmi…');
             });
         });
     }
 
-    /* ---------- 7. Sorot navigasi aktif sesuai section ---------- */
-    function initActiveNav() {
-        const sections = document.querySelectorAll('section[id]');
-        const links = document.querySelectorAll('nav a[href^="#"]');
-        if (!sections.length || !links.length) return;
+    /* ---------- 10. Active Nav & Smooth Anchor Scroll ---------- */
+    function initNavigation() {
+        const header = document.getElementById('mainHeader');
+        let lastScroll = 0;
 
-        const map = {};
-        links.forEach(function (l) {
-            const id = l.getAttribute('href').slice(1);
-            if (id) map[id] = l;
-        });
+        window.addEventListener('scroll', function () {
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            if (header) {
+                if (currentScroll > lastScroll && currentScroll > 80) {
+                    header.classList.add('nav-hidden');
+                } else {
+                    header.classList.remove('nav-hidden');
+                }
+            }
+            lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+        }, { passive: true });
 
-        const observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    links.forEach(function (l) { l.classList.remove('active'); });
-                    const link = map[entry.target.id];
-                    if (link) link.classList.add('active');
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#' || !targetId.startsWith('#')) return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    const headerHeight = header ? header.offsetHeight : 64;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+                    });
                 }
             });
-        }, { threshold: 0.5 });
-
-        sections.forEach(function (s) { observer.observe(s); });
+        });
     }
 
-    /* ---------- 8. Hitungan angka animasi (counters) ---------- */
+    /* ---------- 11. Animated Counters pada Stat ---------- */
     function initCounters() {
         const counters = document.querySelectorAll('.stat-number');
         if (!counters.length) return;
@@ -192,7 +304,7 @@
                 }
 
                 let cur = 0;
-                const step = Math.max(1, Math.ceil(target / 60));
+                const step = Math.max(1, Math.ceil(target / 40));
                 const timer = setInterval(function () {
                     cur += step;
                     if (cur >= target) {
@@ -200,7 +312,7 @@
                         clearInterval(timer);
                     }
                     el.textContent = cur + suffix;
-                }, 25);
+                }, 30);
 
                 observer.unobserve(el);
             });
@@ -209,55 +321,28 @@
         counters.forEach(function (c) { observer.observe(c); });
     }
 
-    /* ---------- 9. Efek kode jatuh (code rain background) ---------- */
-    function initSnow() {
-        if (prefersReducedMotion) return;
-
-        const layer = document.getElementById('snowLayer');
-        if (!layer) return;
-
-        const SNIPPETS = [
-            'function()', 'const x =', '=> { }', 'return;', 'import { }',
-            'console.log', 'await fetch', 'if (true)', 'for (i++)', '=> void',
-            'let a = 0', 'class {}', 'try {}', 'catch(e)', 'null;', 'true;',
-            '0x1F', '&& ||', '===', '!==', 'async', 'yield', 'map()', 'filter',
-            '</>', '{}', '[]', '=>', ';', '#', '$', '&&', '||', '=='
-        ];
-        const COUNT = 60;
-        const fragment = document.createDocumentFragment();
-
-        for (let i = 0; i < COUNT; i++) {
-            const flake = document.createElement('span');
-            const text = SNIPPETS[Math.floor(Math.random() * SNIPPETS.length)];
-            const left = Math.random() * 100;            // posisi horizontal %
-            const duration = Math.random() * 9 + 7;      // 7s - 16s
-            const delay = Math.random() * 12;            // penundaan acak
-            const drift = (Math.random() * 80 - 40) + 'px'; // ayunan horizontal
-
-            flake.textContent = text;
-            flake.style.left = left + '%';
-            flake.style.opacity = (Math.random() * 0.5 + 0.35).toFixed(2);
-            flake.style.animationDuration = duration + 's';
-            flake.style.animationDelay = '-' + delay + 's';
-            flake.style.setProperty('--drift', drift);
-
-            fragment.appendChild(flake);
-        }
-
-        layer.appendChild(fragment);
-    }
-
-    /* ---------- 10. Hamburger Menu (Mobile) ---------- */
-    function initMobileNav() {
+    /* ---------- 12. Mobile Hamburger Nav & Theme Toggle ---------- */
+    function initMobileNavAndTheme() {
         const toggle = document.getElementById('navToggle');
         const nav = document.getElementById('primaryNav');
+        const themeToggle = document.getElementById('themeToggle');
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', function () {
+                const current = document.documentElement.getAttribute('data-theme') || 'dark';
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                try { localStorage.setItem('theme', next); } catch (e) {}
+            });
+        }
+
         if (!toggle || !nav) return;
 
         function close() {
             toggle.classList.remove('is-open');
             nav.classList.remove('is-open');
             toggle.setAttribute('aria-expanded', 'false');
-            toggle.setAttribute('aria-label', 'Buka menu');
+            toggle.setAttribute('aria-label', 'Buka menu navigasi');
         }
 
         toggle.addEventListener('click', function (e) {
@@ -265,46 +350,83 @@
             const isOpen = nav.classList.toggle('is-open');
             toggle.classList.toggle('is-open', isOpen);
             toggle.setAttribute('aria-expanded', String(isOpen));
-            toggle.setAttribute('aria-label', isOpen ? 'Tutup menu' : 'Buka menu');
+            toggle.setAttribute('aria-label', isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi');
         });
 
-        // Tutup menu saat klik link di dalam nav
         nav.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', function () { close(); });
+            link.addEventListener('click', close);
         });
 
-        // Tutup menu saat klik di luar header
         document.addEventListener('click', function (e) {
             if (!nav.classList.contains('is-open')) return;
             const header = document.querySelector('header');
             if (header && !header.contains(e.target)) close();
         });
 
-        // Tutup menu saat resize ke desktop
-        let resizeTimer;
         window.addEventListener('resize', function () {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () {
-                if (window.innerWidth > 820) close();
-            }, 150);
-        });
+            if (window.innerWidth > 820) close();
+        }, { passive: true });
 
-        // Tutup menu dengan Escape
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && nav.classList.contains('is-open')) close();
         });
     }
 
+    /* ---------- 13. Scroll Progress Bar ---------- */
+    function initScrollProgress() {
+        const bar = document.getElementById('scrollProgress');
+        if (!bar) return;
+        function update() {
+            const h = document.documentElement;
+            const scrolled = h.scrollTop || document.body.scrollTop;
+            const max = h.scrollHeight - h.clientHeight;
+            const pct = max > 0 ? (scrolled / max) * 100 : 0;
+            bar.style.width = pct + '%';
+        }
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update, { passive: true });
+        update();
+    }
+
+    /* ---------- 14. Pengguna Online (Realtime Simulasi) ---------- */
+    function initOnlineUsers() {
+        const el = document.getElementById('onlineCount');
+        if (!el) return;
+
+        // Tanpa backend, angka disimulasikan berfluktuasi tiap beberapa detik
+        // untuk memberi kesan "realtime". Ganti dengan WebSocket/API bila ada server.
+        let count = 120 + Math.floor(Math.random() * 80);
+        const min = 80, max = 320;
+
+        function render() {
+            el.textContent = count.toLocaleString('id-ID');
+        }
+        render();
+
+        function tick() {
+            const delta = Math.floor(Math.random() * 11) - 5; // -5 s.d +5
+            count = Math.min(max, Math.max(min, count + delta));
+            render();
+            setTimeout(tick, 2500 + Math.random() * 2500);
+        }
+        setTimeout(tick, 2500);
+    }
+
+    /* ---------- Init All Modules ---------- */
     document.addEventListener('DOMContentLoaded', function () {
+        initVideoLoaders();
+        initDynamicSnow();
+        initIntroOverlay();
         initScrollReveal();
         initBackToTop();
         initCursorGlow();
         initTyping();
         initTilt();
         initToast();
-        initActiveNav();
+        initNavigation();
         initCounters();
-        initSnow();
-        initMobileNav();
+        initMobileNavAndTheme();
+        initScrollProgress();
+        initOnlineUsers();
     });
 })();
