@@ -69,6 +69,8 @@
             enterBtn.addEventListener('click', function (e) {
                 e.stopPropagation();
                 dismissOverlay();
+                // Setelah masuk, tampilkan modal pilihan Root / No Root
+                setTimeout(function () { initChoiceModal(); }, 400);
             });
         }
 
@@ -77,7 +79,72 @@
             if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
                 e.preventDefault();
                 dismissOverlay();
+                setTimeout(function () { initChoiceModal(); }, 400);
             }
+        });
+    }
+
+    /* ---------- 3b. Choice Modal: Root / No Root ---------- */
+    function initChoiceModal() {
+        const modal = document.getElementById('choiceModal');
+        if (!modal || !modal.hasAttribute('hidden') === false) { /* noop */ }
+        if (!modal) return;
+        if (!modal.hasAttribute('hidden')) return; // sudah tampil
+
+        const stepRoot = document.getElementById('stepRoot');
+        const stepNoRoot = document.getElementById('stepNoRoot');
+        const backBtn = document.getElementById('choiceBack');
+        const header = document.getElementById('mainHeader');
+
+        modal.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+
+        function closeModal() {
+            modal.setAttribute('hidden', '');
+            document.body.style.overflow = '';
+        }
+
+        function scrollToId(id) {
+            const target = document.getElementById(id);
+            if (!target) return;
+            // Paksa render agar content-visibility:auto tidak salah hitung posisi
+            target.style.contentVisibility = 'visible';
+            const headerHeight = header ? header.offsetHeight : 64;
+            const pos = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
+            window.scrollTo({ top: pos, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        }
+
+        // Pilihan ROOT / NO ROOT
+        modal.querySelectorAll('[data-choice]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                const choice = btn.getAttribute('data-choice');
+                if (choice === 'root') {
+                    closeModal();
+                    scrollToId('root-tutorial');
+                } else {
+                    stepRoot.hidden = true;
+                    stepNoRoot.hidden = false;
+                }
+            });
+        });
+
+        // Pilihan metode NO ROOT -> arahkan ke section
+        modal.querySelectorAll('[data-target]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                const id = btn.getAttribute('data-target');
+                closeModal();
+                setTimeout(function () { scrollToId(id); }, 250);
+            });
+        });
+
+        if (backBtn) {
+            backBtn.addEventListener('click', function () {
+                stepNoRoot.hidden = true;
+                stepRoot.hidden = false;
+            });
+        }
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) closeModal();
         });
     }
 
