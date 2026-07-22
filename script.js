@@ -1,13 +1,13 @@
 /* ============================================================
-   script.js — Professional Interactions & UI Controllers
+   script.js — Ultra-Fast & High-Performance UI Controller
    ============================================================ */
 (function () {
     'use strict';
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || window.matchMedia('(pointer: coarse)').matches;
 
-    /* ---------- 1. Pemuat Video YouTube Efisiensi Tinggi ---------- */
+    /* ---------- 1. Pemutar Video YouTube Facade & Lazy Load ---------- */
     function initVideoLoaders() {
         function extractYouTubeId(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -15,35 +15,47 @@
             return match && match[2].length === 11 ? match[2] : null;
         }
 
-        function loadVideo(targetId, videoUrl) {
+        function createVideoEmbed(targetId, videoUrl) {
             const el = document.getElementById(targetId);
             const videoId = extractYouTubeId(videoUrl);
-            if (el && videoId) {
-                el.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}" title="YouTube video tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 1rem; aspect-ratio: 16/9; display: block; background: #000;"></iframe>`;
-            }
+            if (!el || !videoId) return;
+
+            // Buat Facade Tampilan Video (Lebih Cepat & Hemat Memori)
+            const thumbUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+            el.style.backgroundImage = `linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7)), url(${thumbUrl})`;
+            el.style.backgroundSize = 'cover';
+            el.style.backgroundPosition = 'center';
+            el.style.cursor = 'pointer';
+
+            el.addEventListener('click', function handler() {
+                el.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border-radius: 0.85rem; aspect-ratio: 16/9; display: block; width:100%; height:100%; background: #000;"></iframe>`;
+                el.removeEventListener('click', handler);
+                el.style.backgroundImage = 'none';
+            });
         }
 
-        loadVideo('videoPreview', "https://youtu.be/nFo4WVc9ZX4?si=lo-ekDOfVK6zr8ZT");
-        loadVideo('videoPreview2', "https://youtu.be/XmzBGlpB5Eg?si=SEooZMPBqBpqjsly");
+        createVideoEmbed('videoPreview', "https://youtu.be/nFo4WVc9ZX4?si=lo-ekDOfVK6zr8ZT");
+        createVideoEmbed('videoPreview2', "https://youtu.be/XmzBGlpB5Eg?si=SEooZMPBqBpqjsly");
     }
 
-    /* ---------- 2. Generator Latar Belakang Partikel Dinamis ---------- */
+    /* ---------- 2. Dynamic Particles (Optimized) ---------- */
     function initDynamicSnow() {
         const snowLayer = document.getElementById('snowLayer');
-        if (!snowLayer || prefersReducedMotion) return;
+        if (!snowLayer || prefersReducedMotion || isTouchDevice) return;
 
-        const symbols = ['1', '0', '•', '✦', '+', 'x', 'V', 'I', 'P'];
-        const count = window.innerWidth > 768 ? 30 : 15;
+        const symbols = ['•', '✦'];
+        const count = 12; // Hemat DOM node untuk performa maksimal
 
+        const fragment = document.createDocumentFragment();
         for (let i = 0; i < count; i++) {
             const span = document.createElement('span');
-            span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-            span.style.left = Math.random() * 100 + '%';
-            span.style.animationDuration = (Math.random() * 8 + 6) + 's';
-            span.style.animationDelay = (Math.random() * 5) + 's';
-            span.style.setProperty('--drift', (Math.random() * 80 - 40) + 'px');
-            snowLayer.appendChild(span);
+            span.textContent = symbols[i % symbols.length];
+            span.style.left = (Math.random() * 95) + '%';
+            span.style.animationDuration = (Math.random() * 6 + 7) + 's';
+            span.style.animationDelay = (Math.random() * 4) + 's';
+            fragment.appendChild(span);
         }
+        snowLayer.appendChild(fragment);
     }
 
     /* ---------- 3. Intro Overlay Animation Controller ---------- */
@@ -59,42 +71,72 @@
             document.body.style.overflow = '';
             setTimeout(function () {
                 if (overlay.parentNode) overlay.remove();
-            }, 700);
+            }, 600);
         }
 
-        // Customer harus mengklik tombol "Masuk" sebelum masuk ke website.
-        // Overlay tidak lagi tertutup otomatis.
         const enterBtn = document.getElementById('introEnterBtn');
         if (enterBtn) {
             enterBtn.addEventListener('click', function (e) {
                 e.stopPropagation();
                 dismissOverlay();
-                // Setelah masuk, tampilkan modal pilihan Root / No Root
-                setTimeout(function () { initChoiceModal(); }, 400);
+                setTimeout(function () { initChoiceModal(); }, 350);
             });
         }
 
-        // Izinkan juga menutup dengan tombol keyboard (Enter / Spasi / Escape)
         overlay.addEventListener('keydown', function (e) {
             if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
                 e.preventDefault();
                 dismissOverlay();
-                setTimeout(function () { initChoiceModal(); }, 400);
+                setTimeout(function () { initChoiceModal(); }, 350);
             }
         });
     }
 
     /* ---------- 3b. Choice Modal: Root / No Root ---------- */
+
+    // Sembunyikan semua section tutorial saat halaman dimuat
+    var TUTORIAL_IDS = ['blackbox-tutorial', 'gameassistant-tutorial', 'root-tutorial'];
+
+    function hideTutorialSections() {
+        TUTORIAL_IDS.forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.style.display = 'none';
+                el.setAttribute('aria-hidden', 'true');
+            }
+        });
+    }
+
+    function showTutorialSection(id) {
+        // Sembunyikan semua dulu
+        TUTORIAL_IDS.forEach(function (otherId) {
+            var el = document.getElementById(otherId);
+            if (el) {
+                el.style.display = 'none';
+                el.setAttribute('aria-hidden', 'true');
+            }
+        });
+        // Tampilkan hanya yang dipilih
+        var target = document.getElementById(id);
+        if (target) {
+            target.style.display = '';
+            target.removeAttribute('aria-hidden');
+        }
+    }
+
     function initChoiceModal() {
         const modal = document.getElementById('choiceModal');
-        if (!modal || !modal.hasAttribute('hidden') === false) { /* noop */ }
         if (!modal) return;
-        if (!modal.hasAttribute('hidden')) return; // sudah tampil
+        if (!modal.hasAttribute('hidden')) return;
 
         const stepRoot = document.getElementById('stepRoot');
         const stepNoRoot = document.getElementById('stepNoRoot');
         const backBtn = document.getElementById('choiceBack');
         const header = document.getElementById('mainHeader');
+
+        // Pastikan step awal benar
+        if (stepRoot) stepRoot.hidden = false;
+        if (stepNoRoot) stepNoRoot.hidden = true;
 
         modal.removeAttribute('hidden');
         document.body.style.overflow = 'hidden';
@@ -102,55 +144,63 @@
         function closeModal() {
             modal.setAttribute('hidden', '');
             document.body.style.overflow = '';
+            // Reset step ke awal jika modal dibuka lagi
+            if (stepRoot) stepRoot.hidden = false;
+            if (stepNoRoot) stepNoRoot.hidden = true;
         }
 
-        function scrollToId(id) {
-            const target = document.getElementById(id);
+        function scrollToSection(id) {
+            var target = document.getElementById(id);
             if (!target) return;
-            // Paksa render agar content-visibility:auto tidak salah hitung posisi
-            target.style.contentVisibility = 'visible';
-            const headerHeight = header ? header.offsetHeight : 64;
-            const pos = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
-            window.scrollTo({ top: pos, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+            var headerHeight = header ? header.offsetHeight : 64;
+            // Tunggu sebentar agar display:'' sudah di-render
+            requestAnimationFrame(function () {
+                var pos = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
+                window.scrollTo({ top: pos, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+            });
         }
 
-        // Pilihan ROOT / NO ROOT
+        // Tombol pilih ROOT atau NO ROOT (step pertama)
         modal.querySelectorAll('[data-choice]').forEach(function (btn) {
             btn.addEventListener('click', function () {
-                const choice = btn.getAttribute('data-choice');
+                var choice = btn.getAttribute('data-choice');
                 if (choice === 'root') {
+                    showTutorialSection('root-tutorial');
                     closeModal();
-                    scrollToId('root-tutorial');
+                    setTimeout(function () { scrollToSection('root-tutorial'); }, 120);
                 } else {
-                    stepRoot.hidden = true;
-                    stepNoRoot.hidden = false;
+                    // Tampilkan step pilih metode No Root
+                    if (stepRoot) stepRoot.hidden = true;
+                    if (stepNoRoot) stepNoRoot.hidden = false;
                 }
             });
         });
 
-        // Pilihan metode NO ROOT -> arahkan ke section
+        // Tombol pilih metode No Root: Blackbox atau Game Assistant
         modal.querySelectorAll('[data-target]').forEach(function (btn) {
             btn.addEventListener('click', function () {
-                const id = btn.getAttribute('data-target');
+                var id = btn.getAttribute('data-target');
+                showTutorialSection(id);
                 closeModal();
-                setTimeout(function () { scrollToId(id); }, 250);
+                setTimeout(function () { scrollToSection(id); }, 120);
             });
         });
 
         if (backBtn) {
             backBtn.addEventListener('click', function () {
-                stepNoRoot.hidden = true;
-                stepRoot.hidden = false;
+                if (stepNoRoot) stepNoRoot.hidden = true;
+                if (stepRoot) stepRoot.hidden = false;
             });
         }
+
+        // Klik area luar modal = tutup (tanpa memilih section)
         modal.addEventListener('click', function (e) {
             if (e.target === modal) closeModal();
         });
     }
 
-    /* ---------- 4. Scroll Reveal (Fade-Up Animation) ---------- */
+    /* ---------- 4. Scroll Reveal (Fast & Unobserve Once) ---------- */
     function initScrollReveal() {
-        // Map selector -> reveal variant class
         const map = [
             ['.hero-note', 'reveal'],
             ['.method-card', 'reveal'],
@@ -162,8 +212,7 @@
             ['.stat', 'reveal'],
             ['.root-card', 'reveal'],
             ['.hero-visual', 'reveal-right'],
-            ['.glass-panel', 'reveal-right'],
-            ['.cta-card', 'reveal-scale']
+            ['.glass-panel', 'reveal-right']
         ];
 
         const targets = [];
@@ -178,29 +227,17 @@
 
         const observer = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
-                // Toggle on every scroll: animate in when visible, reset when out of view
                 if (entry.isIntersecting) {
                     entry.target.classList.add('revealed');
-                } else {
-                    entry.target.classList.remove('revealed');
+                    observer.unobserve(entry.target); // Unobserve agar tidak makan resource saat scroll balik
                 }
             });
-        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
         targets.forEach(function (t) {
             const el = t[0];
             const variant = t[1];
             el.classList.add(variant);
-            // Stagger items that share a parent (grids / lists)
-            const parent = el.parentElement;
-            if (parent) {
-                const siblings = Array.prototype.filter.call(
-                    parent.children,
-                    function (c) { return c.classList.contains(variant); }
-                );
-                const idx = siblings.indexOf(el);
-                if (idx > 0) el.style.setProperty('--reveal-delay', (idx * 0.12) + 's');
-            }
             observer.observe(el);
         });
     }
@@ -210,89 +247,50 @@
         const btn = document.createElement('button');
         btn.className = 'back-to-top';
         btn.setAttribute('aria-label', 'Kembali ke atas halaman');
-        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+        btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>';
         document.body.appendChild(btn);
 
         btn.addEventListener('click', function () {
             window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
         });
 
+        let ticking = false;
         window.addEventListener('scroll', function () {
-            if (window.pageYOffset > 400) {
-                btn.classList.add('show');
-            } else {
-                btn.classList.remove('show');
+            if (!ticking) {
+                window.requestAnimationFrame(function () {
+                    if (window.pageYOffset > 350) {
+                        btn.classList.add('show');
+                    } else {
+                        btn.classList.remove('show');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
         }, { passive: true });
     }
 
-    /* ---------- 6. Cursor Glow Tracking ---------- */
+    /* ---------- 6. Lightweight Cursor Glow Tracking ---------- */
     function initCursorGlow() {
-        if (prefersReducedMotion || isTouch) return;
+        if (prefersReducedMotion || isTouchDevice) return;
 
         const glow = document.createElement('div');
         glow.className = 'cursor-glow';
         document.body.appendChild(glow);
 
-        let x = window.innerWidth / 2, y = window.innerHeight / 2;
-        let tx = x, ty = y;
-
+        let ticking = false;
         window.addEventListener('mousemove', function (e) {
-            tx = e.clientX;
-            ty = e.clientY;
-        }, { passive: true });
-
-        function loop() {
-            x += (tx - x) * 0.15;
-            y += (ty - y) * 0.15;
-            glow.style.transform = `translate(${x}px, ${y}px)`;
-            requestAnimationFrame(loop);
-        }
-        loop();
-    }
-
-    /* ---------- 7. Typing Effect pada Heading ---------- */
-    function initTyping() {
-        const el = document.querySelector('.hero h1');
-        if (!el || prefersReducedMotion) return;
-
-        const originalText = el.textContent.trim();
-        el.textContent = '';
-        el.classList.add('typing');
-
-        let i = 0;
-        function type() {
-            if (i <= originalText.length) {
-                el.textContent = originalText.slice(0, i);
-                i++;
-                setTimeout(type, 55);
-            } else {
-                el.classList.remove('typing');
+            if (!ticking) {
+                window.requestAnimationFrame(function () {
+                    glow.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+                    ticking = false;
+                });
+                ticking = true;
             }
-        }
-        setTimeout(type, 1000);
+        }, { passive: true });
     }
 
-    /* ---------- 8. 3D Tilt Effect pada Kartu ---------- */
-    function initTilt() {
-        if (prefersReducedMotion || isTouch) return;
-
-        const cards = document.querySelectorAll('.method-card, .feature-card');
-        cards.forEach(function (card) {
-            card.classList.add('tilt');
-            card.addEventListener('mousemove', function (e) {
-                const r = card.getBoundingClientRect();
-                const px = (e.clientX - r.left) / r.width - 0.5;
-                const py = (e.clientY - r.top) / r.height - 0.5;
-                card.style.transform = `perspective(800px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg) translateY(-4px)`;
-            });
-            card.addEventListener('mouseleave', function () {
-                card.style.transform = '';
-            });
-        });
-    }
-
-    /* ---------- 9. Toast Notification Handler ---------- */
+    /* ---------- 7. Toast Notification Handler ---------- */
     function initToast() {
         const container = document.createElement('div');
         container.className = 'toast-container';
@@ -312,26 +310,33 @@
 
         document.querySelectorAll('.download-btn').forEach(function (btn) {
             btn.addEventListener('click', function () {
-                showToast('Mengalihkan ke server unduhan resmi…');
+                showToast('Mengalihkan ke tautan unduhan resmi…');
             });
         });
     }
 
-    /* ---------- 10. Active Nav & Smooth Anchor Scroll ---------- */
+    /* ---------- 8. Active Nav & Header Auto-hide ---------- */
     function initNavigation() {
         const header = document.getElementById('mainHeader');
         let lastScroll = 0;
+        let ticking = false;
 
         window.addEventListener('scroll', function () {
-            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            if (header) {
-                if (currentScroll > lastScroll && currentScroll > 80) {
-                    header.classList.add('nav-hidden');
-                } else {
-                    header.classList.remove('nav-hidden');
-                }
+            if (!ticking) {
+                window.requestAnimationFrame(function () {
+                    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                    if (header) {
+                        if (currentScroll > lastScroll && currentScroll > 100) {
+                            header.classList.add('nav-hidden');
+                        } else {
+                            header.classList.remove('nav-hidden');
+                        }
+                    }
+                    lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+                    ticking = false;
+                });
+                ticking = true;
             }
-            lastScroll = currentScroll <= 0 ? 0 : currentScroll;
         }, { passive: true });
 
         document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
@@ -352,7 +357,7 @@
         });
     }
 
-    /* ---------- 11. Animated Counters pada Stat ---------- */
+    /* ---------- 9. Animated Counters pada Stat ---------- */
     function initCounters() {
         const counters = document.querySelectorAll('.stat-number');
         if (!counters.length) return;
@@ -371,7 +376,7 @@
                 }
 
                 let cur = 0;
-                const step = Math.max(1, Math.ceil(target / 40));
+                const step = Math.max(1, Math.ceil(target / 25));
                 const timer = setInterval(function () {
                     cur += step;
                     if (cur >= target) {
@@ -379,7 +384,7 @@
                         clearInterval(timer);
                     }
                     el.textContent = cur + suffix;
-                }, 30);
+                }, 35);
 
                 observer.unobserve(el);
             });
@@ -388,7 +393,7 @@
         counters.forEach(function (c) { observer.observe(c); });
     }
 
-    /* ---------- 12. Mobile Hamburger Nav & Theme Toggle ---------- */
+    /* ---------- 10. Mobile Navigation & Theme Toggle ---------- */
     function initMobileNavAndTheme() {
         const toggle = document.getElementById('navToggle');
         const nav = document.getElementById('primaryNav');
@@ -433,16 +438,14 @@
         window.addEventListener('resize', function () {
             if (window.innerWidth > 820) close();
         }, { passive: true });
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && nav.classList.contains('is-open')) close();
-        });
     }
 
-    /* ---------- 13. Scroll Progress Bar ---------- */
+    /* ---------- 11. Scroll Progress Bar ---------- */
     function initScrollProgress() {
         const bar = document.getElementById('scrollProgress');
         if (!bar) return;
+        let ticking = false;
+
         function update() {
             const h = document.documentElement;
             const scrolled = h.scrollTop || document.body.scrollTop;
@@ -450,45 +453,47 @@
             const pct = max > 0 ? (scrolled / max) * 100 : 0;
             bar.style.width = pct + '%';
         }
-        window.addEventListener('scroll', update, { passive: true });
-        window.addEventListener('resize', update, { passive: true });
+
+        window.addEventListener('scroll', function () {
+            if (!ticking) {
+                window.requestAnimationFrame(function () {
+                    update();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
         update();
     }
 
-    /* ---------- 14. Pengguna Online (Realtime Simulasi) ---------- */
+    /* ---------- 12. Pengguna Online (Simulasi Smooth) ---------- */
     function initOnlineUsers() {
         const el = document.getElementById('onlineCount');
         if (!el) return;
 
-        // Tanpa backend, angka disimulasikan berfluktuasi tiap beberapa detik
-        // untuk memberi kesan "realtime". Ganti dengan WebSocket/API bila ada server.
-        let count = 120 + Math.floor(Math.random() * 80);
-        const min = 80, max = 320;
-
+        let count = 145 + Math.floor(Math.random() * 50);
         function render() {
             el.textContent = count.toLocaleString('id-ID');
         }
         render();
 
-        function tick() {
-            const delta = Math.floor(Math.random() * 11) - 5; // -5 s.d +5
-            count = Math.min(max, Math.max(min, count + delta));
+        setInterval(function () {
+            const delta = Math.floor(Math.random() * 7) - 3;
+            count = Math.min(350, Math.max(90, count + delta));
             render();
-            setTimeout(tick, 2500 + Math.random() * 2500);
-        }
-        setTimeout(tick, 2500);
+        }, 4000);
     }
 
-    /* ---------- Init All Modules ---------- */
+    /* ---------- Init Everything ---------- */
     document.addEventListener('DOMContentLoaded', function () {
+        hideTutorialSections(); // Sembunyikan semua section sampai user pilih metode
         initVideoLoaders();
         initDynamicSnow();
         initIntroOverlay();
         initScrollReveal();
         initBackToTop();
         initCursorGlow();
-        initTyping();
-        initTilt();
         initToast();
         initNavigation();
         initCounters();
