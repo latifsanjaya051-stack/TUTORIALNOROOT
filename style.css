@@ -64,7 +64,7 @@ body::before {
     z-index: 130;
     background: linear-gradient(90deg, #38bdf8, #818cf8, #34d399);
     box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
-    transition: width 0.1s linear;
+    transition: width 0s linear;
 }
 
 a { text-decoration: none; color: inherit; }
