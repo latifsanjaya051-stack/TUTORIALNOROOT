@@ -79,63 +79,212 @@
 
     <!-- Choice Modal: Root / No Root -->
     <div class="choice-modal" id="choiceModal" role="dialog" aria-modal="true" aria-labelledby="choiceTitle" hidden>
-        <div class="choice-card">
+        <div class="choice-modal-backdrop" id="choiceBackdrop"></div>
+        <div class="choice-card" tabindex="-1">
+            <div class="choice-card-glow-bar"></div>
+            <button type="button" class="choice-modal-close" id="choiceModalClose" aria-label="Tutup modal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- STEP 1: ROOT OR NO ROOT -->
             <div class="choice-step" id="stepRoot">
-                <span class="eyebrow"><span class="eyebrow-dot"></span> PILIH METODE</span>
-                <h2 class="choice-title" id="choiceTitle">PERANGKAT ANDA ROOT ATAU NO ROOT?</h2>
-                <p class="choice-sub">Pilih sesuai kondisi perangkat untuk menampilkan panduan yang tepat.</p>
-                <div class="choice-options">
-                    <button type="button" class="choice-opt choice-opt-root" data-choice="root">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            aria-hidden="true">
-                            <path
-                                d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z">
-                            </path>
-                            <path d="M9 21h6"></path>
-                            <path d="M10 17v4"></path>
-                            <path d="M14 17v4"></path>
-                        </svg>
-                        <span>PERANGKAT ROOT</span>
+                <div class="choice-step-header">
+                    <div class="step-badge">
+                        <span class="step-badge-dot"></span>
+                        <span>LANGKAH 1 DARI 2</span>
+                    </div>
+                    <h2 class="choice-title" id="choiceTitle">PERANGKAT ANDA ROOT ATAU NO ROOT?</h2>
+                    <p class="choice-sub">Pilih jenis akses perangkat Anda untuk menampilkan panduan &amp; bahan yang
+                        tepat.</p>
+                </div>
+
+                <div class="choice-options-grid">
+                    <button type="button" class="choice-card-opt choice-opt-root" data-choice="root">
+                        <div class="choice-opt-header">
+                            <div class="choice-opt-icon-wrapper root-icon-bg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <path
+                                        d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3c1.8-1.2 3-3.3 3-5.7a7 7 0 0 0-7-7z">
+                                    </path>
+                                    <path d="M9 21h6"></path>
+                                    <path d="M10 17v4"></path>
+                                    <path d="M14 17v4"></path>
+                                </svg>
+                            </div>
+                            <div class="choice-opt-pills-col">
+                                <span class="choice-opt-badge-tag root-tag">HIGH PERFORMANCE</span>
+                                <span class="choice-opt-pill root-pill">RAM 4GB+</span>
+                            </div>
+                        </div>
+                        <div class="choice-opt-body">
+                            <h3 class="choice-opt-title">PERANGKAT ROOT</h3>
+                            <p class="choice-opt-desc">Panduan untuk HP Rooted (Magisk / KernelSU / APatch). Akses modul
+                                VIP &amp; performa penuh.</p>
+                            <div class="choice-opt-features">
+                                <span class="feat-tag">⚡ Full Access</span>
+                                <span class="feat-tag">🛡️ Modul VIP</span>
+                            </div>
+                        </div>
+                        <div class="choice-opt-footer">
+                            <span class="choice-opt-link">Buka Panduan Root</span>
+                            <svg class="choice-arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </div>
                     </button>
-                    <button type="button" class="choice-opt choice-opt-noroot" data-choice="noroot">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            aria-hidden="true">
-                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                            <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                        </svg>
-                        <span>PERANGKAT NO ROOT</span>
+
+                    <button type="button" class="choice-card-opt choice-opt-noroot" data-choice="noroot">
+                        <div class="choice-opt-header">
+                            <div class="choice-opt-icon-wrapper noroot-icon-bg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                                </svg>
+                            </div>
+                            <div class="choice-opt-pills-col">
+                                <span class="choice-opt-badge-tag noroot-tag">POPULER &amp; AMAN</span>
+                                <span class="choice-opt-pill noroot-pill">2 METODE</span>
+                            </div>
+                        </div>
+                        <div class="choice-opt-body">
+                            <h3 class="choice-opt-title">PERANGKAT NO ROOT</h3>
+                            <p class="choice-opt-desc">Panduan untuk HP standar tanpa ulik system. Pilih metode Blackbox
+                                atau Game Assistant.</p>
+                            <div class="choice-opt-features">
+                                <span class="feat-tag">🚀 Easy Setup</span>
+                                <span class="feat-tag">🔒 100% Safe</span>
+                            </div>
+                        </div>
+                        <div class="choice-opt-footer">
+                            <span class="choice-opt-link">Pilih Metode No Root</span>
+                            <svg class="choice-arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </div>
                     </button>
                 </div>
             </div>
+
+            <!-- STEP 2: NO ROOT METHOD SELECTION -->
             <div class="choice-step" id="stepNoRoot" hidden>
-                <span class="eyebrow"><span class="eyebrow-dot"></span> NO ROOT</span>
-                <h2 class="choice-title">PILIH METODE NO ROOT</h2>
-                <p class="choice-sub">Tersedia 2 metode. Pilih yang sesuai kapasitas RAM perangkat Anda.</p>
-                <div class="choice-options">
-                    <button type="button" class="choice-opt choice-opt-game" data-target="gameassistant-tutorial">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            aria-hidden="true">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                            <polyline points="2 17 12 22 22 17"></polyline>
-                            <polyline points="2 12 12 17 22 12"></polyline>
-                        </svg>
-                        <span>GAME ASSISTANT 4.5</span>
+                <div class="choice-step-header">
+                    <div class="step-badge step-badge-cyan">
+                        <span class="step-badge-dot"></span>
+                        <span>LANGKAH 2 DARI 2</span>
+                    </div>
+                    <h2 class="choice-title">PILIH METODE NO ROOT</h2>
+                    <p class="choice-sub">Tersedia 2 metode teruji. Pilih yang sesuai spesifikasi &amp; kapasitas RAM
+                        perangkat Anda.</p>
+                </div>
+
+                <div class="choice-options-grid">
+                    <button type="button" class="choice-card-opt choice-opt-blackbox" data-target="blackbox-tutorial">
+                        <div class="choice-opt-header">
+                            <div class="choice-opt-icon-wrapper blackbox-icon-bg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <rect x="4" y="4" width="16" height="16" rx="2.5" ry="2.5"></rect>
+                                    <rect x="9" y="9" width="6" height="6" rx="1"></rect>
+                                    <line x1="9" y1="1" x2="9" y2="4"></line>
+                                    <line x1="15" y1="1" x2="15" y2="4"></line>
+                                    <line x1="9" y1="20" x2="9" y2="23"></line>
+                                    <line x1="15" y1="20" x2="15" y2="23"></line>
+                                    <line x1="20" y1="9" x2="23" y2="9"></line>
+                                    <line x1="20" y1="15" x2="23" y2="15"></line>
+                                    <line x1="1" y1="9" x2="4" y2="9"></line>
+                                    <line x1="1" y1="15" x2="4" y2="15"></line>
+                                </svg>
+                            </div>
+                            <div class="choice-opt-pills-col">
+                                <span class="choice-opt-badge-tag blackbox-tag">FITUR UR LENGKAP</span>
+                                <span class="choice-opt-pill blackbox-pill">RAM 4GB+</span>
+                            </div>
+                        </div>
+                        <div class="choice-opt-body">
+                            <h3 class="choice-opt-title">BLACKBOX CONTAINER</h3>
+                            <p class="choice-opt-desc">Mendukung fitur UR penuh. ringan juga, Wajib relog tiap 5 match.
+                                Sangat direkomendasikan untuk RAM 4GB ke atas.</p>
+                            <div class="choice-opt-features">
+                                <span class="feat-tag">🔥 Support UR</span>
+                                <span class="feat-tag">⚙️ Fitur Komplit</span>
+                            </div>
+                        </div>
+                        <div class="choice-opt-footer">
+                            <span class="choice-opt-link">Buka Blackbox Container</span>
+                            <svg class="choice-arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </div>
                     </button>
-                    <button type="button" class="choice-opt choice-opt-blackbox" data-target="blackbox-tutorial">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            aria-hidden="true">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                        </svg>
-                        <span>BLACKBOX CONTAINER 4.5</span>
+
+                    <button type="button" class="choice-card-opt choice-opt-game" data-target="gameassistant-tutorial">
+                        <div class="choice-opt-header">
+                            <div class="choice-opt-icon-wrapper game-icon-bg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                    stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M18 6H6a4 4 0 0 0-4 4v4a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4v-4a4 4 0 0 0-4-4z">
+                                    </path>
+                                    <line x1="6" y1="12" x2="10" y2="12"></line>
+                                    <line x1="8" y1="10" x2="8" y2="14"></line>
+                                    <circle cx="15" cy="11" r="1" fill="currentColor"></circle>
+                                    <circle cx="18" cy="13" r="1" fill="currentColor"></circle>
+                                </svg>
+                            </div>
+                            <div class="choice-opt-pills-col">
+                                <span class="choice-opt-badge-tag game-tag">RINGAN &amp; STABIL</span>
+                                <span class="choice-opt-pill game-pill">RAM &lt; 4GB</span>
+                            </div>
+                        </div>
+                        <div class="choice-opt-body">
+                            <h3 class="choice-opt-title">GAME ASSISTANT 4.5</h3>
+                            <p class="choice-opt-desc">Performa sangat ringan, hemat baterai, setiap 1 match wajib
+                                relog. Sangat direkomendasikan untuk RAM 4GB.</p>
+                            <div class="choice-opt-features">
+                                <span class="feat-tag">⚡ Ultra Light</span>
+                                <span class="feat-tag">🛡️ tidak suport UR</span>
+                            </div>
+                        </div>
+                        <div class="choice-opt-footer">
+                            <span class="choice-opt-link">Buka Game Assistant</span>
+                            <svg class="choice-arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </div>
                     </button>
                 </div>
-                <button type="button" class="choice-back" id="choiceBack">&larr; Kembali</button>
+
+                <div class="choice-modal-footer">
+                    <button type="button" class="choice-back" id="choiceBack">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        <span>Kembali ke pilihan awal</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -207,6 +356,16 @@
                 <span class="nav-toggle-bar"></span>
             </button>
             <nav id="primaryNav" class="primary-nav">
+                <button type="button" id="openChoiceModalBtn" class="open-choice-btn"
+                    aria-label="Buka Pemilihan Metode">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                    <span>PILIH METODE</span>
+                </button>
                 <a href="https://lynk.id/solanahax" target="_blank" rel="noopener noreferrer" class="buy-key-btn"
                     aria-label="Beli Key Solana">
                     <svg class="buy-key-cart" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
@@ -261,9 +420,16 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" aria-hidden="true">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="9" y1="9" x2="15" y2="15"></line>
-                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <rect x="4" y="4" width="16" height="16" rx="2.5" ry="2.5"></rect>
+                                <rect x="9" y="9" width="6" height="6" rx="1"></rect>
+                                <line x1="9" y1="1" x2="9" y2="4"></line>
+                                <line x1="15" y1="1" x2="15" y2="4"></line>
+                                <line x1="9" y1="20" x2="9" y2="23"></line>
+                                <line x1="15" y1="20" x2="15" y2="23"></line>
+                                <line x1="20" y1="9" x2="23" y2="9"></line>
+                                <line x1="20" y1="15" x2="23" y2="15"></line>
+                                <line x1="1" y1="9" x2="4" y2="9"></line>
+                                <line x1="1" y1="15" x2="4" y2="15"></line>
                             </svg>
                             BLACKBOX CONTAINER 4.5
                         </a>
@@ -271,9 +437,12 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" aria-hidden="true">
-                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                <polyline points="2 17 12 22 22 17"></polyline>
-                                <polyline points="2 12 12 17 22 12"></polyline>
+                                <path d="M18 6H6a4 4 0 0 0-4 4v4a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4v-4a4 4 0 0 0-4-4z">
+                                </path>
+                                <line x1="6" y1="12" x2="10" y2="12"></line>
+                                <line x1="8" y1="10" x2="8" y2="14"></line>
+                                <circle cx="15" cy="11" r="1" fill="currentColor"></circle>
+                                <circle cx="18" cy="13" r="1" fill="currentColor"></circle>
                             </svg>
                             GAME ASSISTANT 4.5
                         </a>
@@ -419,7 +588,7 @@
                         </div>
 
                         <div class="download-links">
-                            <a href="https://www.mediafire.com/file/4q2lgv1m2djxwtx/BLACKBOX_V3_4.5_ringan.apk/file"
+                            <a href="https://www.mediafire.com/file/lu1sp4kodtslaqh/CONTAINER_BLACKBOX_4.5.apk/file"
                                 target="_blank" rel="noopener noreferrer" class="download-btn download-btn-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
@@ -428,7 +597,7 @@
                                     <polyline points="7 10 12 15 17 10"></polyline>
                                     <line x1="12" y1="15" x2="12" y2="3"></line>
                                 </svg>
-                                UNDUH BLACKBOX V3 4.5
+                                UNDUH BLACKBOX CONTAINER
                             </a>
                             <a href="https://www.mediafire.com/file/15876vrod1epjpn/SOLANA_PRO_V14.0.0.apk/file"
                                 target="_blank" rel="noopener noreferrer" class="download-btn download-btn-secondary">
