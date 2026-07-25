@@ -127,24 +127,27 @@
     function initChoiceModal() {
         const modal = document.getElementById('choiceModal');
         if (!modal) return;
-        if (!modal.hasAttribute('hidden')) return;
 
         const stepRoot = document.getElementById('stepRoot');
         const stepNoRoot = document.getElementById('stepNoRoot');
         const backBtn = document.getElementById('choiceBack');
+        const closeBtn = document.getElementById('choiceModalClose');
+        const backdrop = document.getElementById('choiceBackdrop');
+        const openBtn = document.getElementById('openChoiceModalBtn');
         const header = document.getElementById('mainHeader');
 
-        // Pastikan step awal benar
-        if (stepRoot) stepRoot.hidden = false;
-        if (stepNoRoot) stepNoRoot.hidden = true;
-
-        modal.removeAttribute('hidden');
-        document.body.style.overflow = 'hidden';
+        function openModal() {
+            if (stepRoot) stepRoot.hidden = false;
+            if (stepNoRoot) stepNoRoot.hidden = true;
+            modal.removeAttribute('hidden');
+            document.body.style.overflow = 'hidden';
+            const card = modal.querySelector('.choice-card');
+            if (card) card.focus();
+        }
 
         function closeModal() {
             modal.setAttribute('hidden', '');
             document.body.style.overflow = '';
-            // Reset step ke awal jika modal dibuka lagi
             if (stepRoot) stepRoot.hidden = false;
             if (stepNoRoot) stepNoRoot.hidden = true;
         }
@@ -153,50 +156,71 @@
             var target = document.getElementById(id);
             if (!target) return;
             var headerHeight = header ? header.offsetHeight : 64;
-            // Tunggu sebentar agar display:'' sudah di-render
             requestAnimationFrame(function () {
                 var pos = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
                 window.scrollTo({ top: pos, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
             });
         }
 
-        // Tombol pilih ROOT atau NO ROOT (step pertama)
-        modal.querySelectorAll('[data-choice]').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var choice = btn.getAttribute('data-choice');
-                if (choice === 'root') {
-                    showTutorialSection('root-tutorial');
-                    closeModal();
-                    setTimeout(function () { scrollToSection('root-tutorial'); }, 120);
-                } else {
-                    // Tampilkan step pilih metode No Root
-                    if (stepRoot) stepRoot.hidden = true;
-                    if (stepNoRoot) stepNoRoot.hidden = false;
-                }
-            });
-        });
-
-        // Tombol pilih metode No Root: Blackbox atau Game Assistant
-        modal.querySelectorAll('[data-target]').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var id = btn.getAttribute('data-target');
-                showTutorialSection(id);
-                closeModal();
-                setTimeout(function () { scrollToSection(id); }, 120);
-            });
-        });
-
-        if (backBtn) {
-            backBtn.addEventListener('click', function () {
-                if (stepNoRoot) stepNoRoot.hidden = true;
-                if (stepRoot) stepRoot.hidden = false;
-            });
+        if (modal.hasAttribute('hidden')) {
+            openModal();
         }
 
-        // Klik area luar modal = tutup (tanpa memilih section)
-        modal.addEventListener('click', function (e) {
-            if (e.target === modal) closeModal();
-        });
+        if (!modal.dataset.initialized) {
+            modal.dataset.initialized = 'true';
+
+            modal.querySelectorAll('[data-choice]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var choice = btn.getAttribute('data-choice');
+                    if (choice === 'root') {
+                        showTutorialSection('root-tutorial');
+                        closeModal();
+                        setTimeout(function () { scrollToSection('root-tutorial'); }, 120);
+                    } else {
+                        if (stepRoot) stepRoot.hidden = true;
+                        if (stepNoRoot) stepNoRoot.hidden = false;
+                    }
+                });
+            });
+
+            modal.querySelectorAll('[data-target]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var id = btn.getAttribute('data-target');
+                    showTutorialSection(id);
+                    closeModal();
+                    setTimeout(function () { scrollToSection(id); }, 120);
+                });
+            });
+
+            if (backBtn) {
+                backBtn.addEventListener('click', function () {
+                    if (stepNoRoot) stepNoRoot.hidden = true;
+                    if (stepRoot) stepRoot.hidden = false;
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeModal);
+            }
+
+            if (backdrop) {
+                backdrop.addEventListener('click', closeModal);
+            }
+
+            if (openBtn) {
+                openBtn.addEventListener('click', openModal);
+            }
+
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) closeModal();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && !modal.hasAttribute('hidden')) {
+                    closeModal();
+                }
+            });
+        }
     }
 
     /* ---------- 4. Scroll Reveal (Fast & Unobserve Once) ---------- */
@@ -404,7 +428,7 @@
                 const current = document.documentElement.getAttribute('data-theme') || 'dark';
                 const next = current === 'dark' ? 'light' : 'dark';
                 document.documentElement.setAttribute('data-theme', next);
-                try { localStorage.setItem('theme', next); } catch (e) {}
+                try { localStorage.setItem('theme', next); } catch (e) { }
             });
         }
 
