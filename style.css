@@ -282,6 +282,56 @@ header.nav-hidden {
     gap: 0.9rem;
 }
 
+.open-choice-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 1.2rem;
+    border-radius: 99px;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(99, 102, 241, 0.16));
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.open-choice-btn svg {
+    color: var(--brand);
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+
+.open-choice-btn:hover {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.32), rgba(99, 102, 241, 0.32));
+    border-color: var(--brand);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    transform: translateY(-2px);
+    color: #ffffff;
+}
+
+.open-choice-btn:hover svg {
+    transform: scale(1.15) rotate(12deg);
+}
+
+.open-choice-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+[data-theme="light"] .open-choice-btn {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(99, 102, 241, 0.12));
+    border-color: rgba(14, 165, 233, 0.35);
+    color: #0284c7;
+}
+
+[data-theme="light"] .open-choice-btn:hover {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.25), rgba(99, 102, 241, 0.25));
+    color: #0369a1;
+}
+
 .buy-key-btn {
     display: inline-flex;
     align-items: center;
@@ -549,7 +599,8 @@ header.nav-hidden {
     transform: rotate(90deg);
 }
 
-[hidden], .choice-step[hidden] {
+[hidden],
+.choice-step[hidden] {
     display: none !important;
 }
 
@@ -634,7 +685,8 @@ header.nav-hidden {
     width: 100%;
 }
 
-.choice-card-opt:hover, .choice-card-opt:focus-visible {
+.choice-card-opt:hover,
+.choice-card-opt:focus-visible {
     transform: translateY(-3px) scale(1.005);
     background: rgba(30, 41, 59, 0.9) !important;
 }
@@ -681,10 +733,29 @@ header.nav-hidden {
     white-space: nowrap;
 }
 
-.root-tag { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); color: #fbbf24; }
-.noroot-tag { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; }
-.game-tag { background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.35); color: #34d399; }
-.blackbox-tag { background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.35); color: #c084fc; }
+.root-tag {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #fbbf24;
+}
+
+.noroot-tag {
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #38bdf8;
+}
+
+.game-tag {
+    background: rgba(52, 211, 153, 0.15);
+    border: 1px solid rgba(52, 211, 153, 0.35);
+    color: #34d399;
+}
+
+.blackbox-tag {
+    background: rgba(168, 85, 247, 0.15);
+    border: 1px solid rgba(168, 85, 247, 0.35);
+    color: #c084fc;
+}
 
 .choice-opt-pill {
     font-size: 0.62rem;
@@ -694,10 +765,29 @@ header.nav-hidden {
     white-space: nowrap;
 }
 
-.root-pill { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
-.noroot-pill { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
-.game-pill { background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
-.blackbox-pill { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+.root-pill {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.noroot-pill {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.game-pill {
+    background: rgba(52, 211, 153, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.blackbox-pill {
+    background: rgba(168, 85, 247, 0.15);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
 
 /* Choice Card Body */
 .choice-opt-body {
@@ -761,21 +851,61 @@ header.nav-hidden {
 }
 
 /* Hover Accent Colors */
-.choice-opt-root:hover { border-color: rgba(245, 158, 11, 0.6) !important; box-shadow: 0 8px 24px -4px rgba(245, 158, 11, 0.25); }
-.choice-opt-root:hover .choice-opt-link { color: #fbbf24; }
-.choice-opt-root:hover .choice-arrow { transform: translateX(5px); color: #fbbf24; }
+.choice-opt-root:hover {
+    border-color: rgba(245, 158, 11, 0.6) !important;
+    box-shadow: 0 8px 24px -4px rgba(245, 158, 11, 0.25);
+}
 
-.choice-opt-noroot:hover { border-color: rgba(56, 189, 248, 0.6) !important; box-shadow: 0 8px 24px -4px rgba(56, 189, 248, 0.3); }
-.choice-opt-noroot:hover .choice-opt-link { color: #38bdf8; }
-.choice-opt-noroot:hover .choice-arrow { transform: translateX(5px); color: #38bdf8; }
+.choice-opt-root:hover .choice-opt-link {
+    color: #fbbf24;
+}
 
-.choice-opt-game:hover { border-color: rgba(52, 211, 153, 0.6) !important; box-shadow: 0 8px 24px -4px rgba(52, 211, 153, 0.3); }
-.choice-opt-game:hover .choice-opt-link { color: #34d399; }
-.choice-opt-game:hover .choice-arrow { transform: translateX(5px); color: #34d399; }
+.choice-opt-root:hover .choice-arrow {
+    transform: translateX(5px);
+    color: #fbbf24;
+}
 
-.choice-opt-blackbox:hover { border-color: rgba(168, 85, 247, 0.6) !important; box-shadow: 0 8px 24px -4px rgba(168, 85, 247, 0.3); }
-.choice-opt-blackbox:hover .choice-opt-link { color: #c084fc; }
-.choice-opt-blackbox:hover .choice-arrow { transform: translateX(5px); color: #c084fc; }
+.choice-opt-noroot:hover {
+    border-color: rgba(56, 189, 248, 0.6) !important;
+    box-shadow: 0 8px 24px -4px rgba(56, 189, 248, 0.3);
+}
+
+.choice-opt-noroot:hover .choice-opt-link {
+    color: #38bdf8;
+}
+
+.choice-opt-noroot:hover .choice-arrow {
+    transform: translateX(5px);
+    color: #38bdf8;
+}
+
+.choice-opt-game:hover {
+    border-color: rgba(52, 211, 153, 0.6) !important;
+    box-shadow: 0 8px 24px -4px rgba(52, 211, 153, 0.3);
+}
+
+.choice-opt-game:hover .choice-opt-link {
+    color: #34d399;
+}
+
+.choice-opt-game:hover .choice-arrow {
+    transform: translateX(5px);
+    color: #34d399;
+}
+
+.choice-opt-blackbox:hover {
+    border-color: rgba(168, 85, 247, 0.6) !important;
+    box-shadow: 0 8px 24px -4px rgba(168, 85, 247, 0.3);
+}
+
+.choice-opt-blackbox:hover .choice-opt-link {
+    color: #c084fc;
+}
+
+.choice-opt-blackbox:hover .choice-arrow {
+    transform: translateX(5px);
+    color: #c084fc;
+}
 
 .choice-modal-footer {
     display: flex;
@@ -811,15 +941,19 @@ header.nav-hidden {
         padding: 1.5rem 1.15rem 1.25rem;
         border-radius: 20px;
     }
+
     .choice-title {
         font-size: 1.15rem;
     }
+
     .choice-opt-title {
         font-size: 1rem;
     }
+
     .choice-opt-header {
         margin-bottom: 0.6rem;
     }
+
     .choice-opt-pills-col {
         gap: 0.3rem;
     }
@@ -1694,17 +1828,23 @@ footer {
         top: 60px;
         left: 0;
         right: 0;
-        background: rgba(6, 9, 19, 0.96);
+        background: rgba(6, 9, 19, 0.98);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        padding: 1.5rem;
+        padding: 1.25rem 1.5rem;
         flex-direction: column;
         align-items: stretch;
-        border-bottom: 1px solid var(--border);
+        gap: 0.75rem;
+        border-bottom: 1px solid var(--border-strong);
         transform: translate3d(0, -100%, 0);
         opacity: 0;
         visibility: hidden;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
+    }
+
+    [data-theme="light"] .primary-nav {
+        background: rgba(255, 255, 255, 0.98);
     }
 
     .primary-nav.is-open {
@@ -1713,8 +1853,11 @@ footer {
         visibility: visible;
     }
 
+    .open-choice-btn,
     .buy-key-btn {
+        width: 100%;
         justify-content: center;
-        padding: 0.75rem;
+        padding: 0.75rem 1.2rem;
+        font-size: 0.88rem;
     }
 }
