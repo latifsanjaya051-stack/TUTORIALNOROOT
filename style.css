@@ -1861,12 +1861,3 @@ footer {
         font-size: 0.88rem;
     }
 }
-
-/* Sembunyikan sementara opsi & section BLACKBOX CONTAINER tanpa menghapus kode asli */
-.choice-opt-blackbox,
-.tut-nav-blackbox,
-.method-card-blackbox,
-#blackbox-tutorial,
-.footer-links a[href="#blackbox-tutorial"] {
-    display: none !important;
-}
