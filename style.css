@@ -2204,13 +2204,3 @@ footer::before {
         font-size: 0.88rem;
     }
 }
-
-/* Hide Blackbox Container components */
-#blackbox-tutorial,
-.choice-opt-blackbox,
-.tut-nav-blackbox,
-.method-card-blackbox,
-.glass-row-blackbox,
-.nav-blackbox-link {
-    display: none !important;
-}
