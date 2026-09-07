@@ -1312,15 +1312,21 @@ header.nav-hidden {
 }
 
 .method-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: center;
     gap: 1.4rem;
+    width: 100%;
+    max-width: 580px;
+    margin: 0 auto;
+}
+
+.method-cards .method-card {
     width: 100%;
 }
 
 @media (max-width: 640px) {
     .method-cards {
-        grid-template-columns: 1fr;
+        width: 100%;
     }
 }
 
@@ -2203,4 +2209,14 @@ footer::before {
         padding: 0.8rem 1.2rem;
         font-size: 0.88rem;
     }
+}
+
+/* ---------- Sembunyikan Komponen Blackbox ---------- */
+#blackbox-tutorial,
+.tut-nav-blackbox,
+.method-card-blackbox,
+.choice-opt-blackbox,
+.glass-row-blackbox,
+.nav-blackbox-link {
+    display: none !important;
 }
