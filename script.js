@@ -116,11 +116,13 @@
                 el.setAttribute('aria-hidden', 'true');
             }
         });
-        // Tampilkan hanya yang dipilih
-        var target = document.getElementById(id);
-        if (target) {
-            target.style.display = '';
-            target.removeAttribute('aria-hidden');
+        // Tampilkan hanya yang dipilih (kecuali blackbox yang disembunyikan)
+        if (id !== 'blackbox-tutorial') {
+            var target = document.getElementById(id);
+            if (target) {
+                target.style.display = '';
+                target.removeAttribute('aria-hidden');
+            }
         }
     }
 
@@ -177,8 +179,9 @@
                         closeModal();
                         setTimeout(function () { scrollToSection('root-tutorial'); }, 120);
                     } else {
-                        if (stepRoot) stepRoot.hidden = true;
-                        if (stepNoRoot) stepNoRoot.hidden = false;
+                        showTutorialSection('gameassistant-tutorial');
+                        closeModal();
+                        setTimeout(function () { scrollToSection('gameassistant-tutorial'); }, 120);
                     }
                 });
             });
@@ -186,6 +189,9 @@
             modal.querySelectorAll('[data-target]').forEach(function (btn) {
                 btn.addEventListener('click', function () {
                     var id = btn.getAttribute('data-target');
+                    if (id === 'blackbox-tutorial') {
+                        id = 'gameassistant-tutorial';
+                    }
                     showTutorialSection(id);
                     closeModal();
                     setTimeout(function () { scrollToSection(id); }, 120);
