@@ -2210,13 +2210,3 @@ footer::before {
         font-size: 0.88rem;
     }
 }
-
-/* ---------- Sembunyikan Komponen Blackbox ---------- */
-#blackbox-tutorial,
-.tut-nav-blackbox,
-.method-card-blackbox,
-.choice-opt-blackbox,
-.glass-row-blackbox,
-.nav-blackbox-link {
-    display: none !important;
-}
