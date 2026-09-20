@@ -116,13 +116,11 @@
                 el.setAttribute('aria-hidden', 'true');
             }
         });
-        // Tampilkan hanya yang dipilih (kecuali blackbox yang disembunyikan)
-        if (id !== 'blackbox-tutorial') {
-            var target = document.getElementById(id);
-            if (target) {
-                target.style.display = '';
-                target.removeAttribute('aria-hidden');
-            }
+        // Tampilkan section yang dipilih
+        var target = document.getElementById(id);
+        if (target) {
+            target.style.display = '';
+            target.removeAttribute('aria-hidden');
         }
     }
 
@@ -178,10 +176,11 @@
                         showTutorialSection('root-tutorial');
                         closeModal();
                         setTimeout(function () { scrollToSection('root-tutorial'); }, 120);
-                    } else {
-                        showTutorialSection('gameassistant-tutorial');
-                        closeModal();
-                        setTimeout(function () { scrollToSection('gameassistant-tutorial'); }, 120);
+                    } else if (choice === 'noroot') {
+                        if (stepRoot) stepRoot.hidden = true;
+                        if (stepNoRoot) stepNoRoot.hidden = false;
+                        var firstOpt = stepNoRoot ? stepNoRoot.querySelector('.choice-card-opt') : null;
+                        if (firstOpt) firstOpt.focus();
                     }
                 });
             });
@@ -189,9 +188,6 @@
             modal.querySelectorAll('[data-target]').forEach(function (btn) {
                 btn.addEventListener('click', function () {
                     var id = btn.getAttribute('data-target');
-                    if (id === 'blackbox-tutorial') {
-                        id = 'gameassistant-tutorial';
-                    }
                     showTutorialSection(id);
                     closeModal();
                     setTimeout(function () { scrollToSection(id); }, 120);
@@ -373,6 +369,10 @@
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
                 if (targetId === '#' || !targetId.startsWith('#')) return;
+                const sectionId = targetId.substring(1);
+                if (TUTORIAL_IDS.indexOf(sectionId) !== -1) {
+                    showTutorialSection(sectionId);
+                }
                 const target = document.querySelector(targetId);
                 if (target) {
                     e.preventDefault();
