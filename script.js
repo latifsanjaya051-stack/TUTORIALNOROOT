@@ -177,10 +177,10 @@
                         closeModal();
                         setTimeout(function () { scrollToSection('root-tutorial'); }, 120);
                     } else if (choice === 'noroot') {
-                        if (stepRoot) stepRoot.hidden = true;
-                        if (stepNoRoot) stepNoRoot.hidden = false;
-                        var firstOpt = stepNoRoot ? stepNoRoot.querySelector('.choice-card-opt') : null;
-                        if (firstOpt) firstOpt.focus();
+                        // Blackbox disembunyikan sementara: langsung arahkan ke Game Assistant
+                        showTutorialSection('gameassistant-tutorial');
+                        closeModal();
+                        setTimeout(function () { scrollToSection('gameassistant-tutorial'); }, 120);
                     }
                 });
             });
