@@ -12,7 +12,7 @@
     --surface: rgba(15, 23, 42, 0.65);
     --surface-hover: rgba(26, 38, 66, 0.8);
     --surface-solid: #0d1527;
-    
+
     /* Elegant Subtle Glass Borders */
     --border: rgba(255, 255, 255, 0.08);
     --border-light: rgba(255, 255, 255, 0.14);
@@ -64,7 +64,7 @@
     --surface: rgba(255, 255, 255, 0.9);
     --surface-hover: rgba(248, 250, 252, 1);
     --surface-solid: #ffffff;
-    
+
     --border: rgba(0, 0, 0, 0.07);
     --border-light: rgba(0, 0, 0, 0.12);
     --border-strong: rgba(14, 165, 233, 0.3);
@@ -158,12 +158,15 @@ body::before {
         transform: translate3d(0, -20px, 0) rotate(0deg);
         opacity: 0;
     }
+
     20% {
         opacity: 0.35;
     }
+
     80% {
         opacity: 0.35;
     }
+
     100% {
         transform: translate3d(0, 105vh, 0) rotate(180deg);
         opacity: 0;
@@ -269,9 +272,20 @@ iframe {
 }
 
 @keyframes pingPulse {
-    0% { transform: scale(0.8); opacity: 0.8; }
-    50% { transform: scale(1.6); opacity: 0; }
-    100% { transform: scale(0.8); opacity: 0; }
+    0% {
+        transform: scale(0.8);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
 }
 
 .top-notif-icon {
@@ -288,6 +302,7 @@ iframe {
     0% {
         transform: translate3d(0, 0, 0);
     }
+
     100% {
         transform: translate3d(-50%, 0, 0);
     }
@@ -716,6 +731,7 @@ header.nav-hidden {
         opacity: 0;
         transform: scale(0.92) translateY(16px);
     }
+
     100% {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -2209,4 +2225,21 @@ footer::before {
         padding: 0.8rem 1.2rem;
         font-size: 0.88rem;
     }
+}
+
+/* ============================================================
+   Temporary Hidden: Blackbox Container
+   (Aktifkan kembali dengan menghapus / menonaktifkan blok ini)
+   ============================================================ */
+.choice-opt-blackbox,
+.tut-nav-blackbox,
+.method-card-blackbox,
+.glass-row-blackbox,
+.nav-blackbox-link,
+#blackbox-tutorial {
+    display: none !important;
+}
+
+.method-cards {
+    max-width: 480px;
 }
