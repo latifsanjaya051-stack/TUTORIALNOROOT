@@ -286,7 +286,6 @@
     /* ---------- 6. Scroll Reveal ---------- */
     function initScrollReveal() {
         const map = [
-            ['.hero-note', 'reveal'],
             ['.method-card', 'reveal'],
             ['.tutorial-card', 'reveal-scale'],
             ['.feature-card', 'reveal'],
@@ -503,31 +502,10 @@
         counters.forEach(function (c) { observer.observe(c); });
     }
 
-    /* ---------- 12. Mobile Navigation & Theme Toggle ---------- */
-    function initMobileNavAndTheme() {
+    /* ---------- 12. Mobile Navigation ---------- */
+    function initMobileNav() {
         const toggle = document.getElementById('navToggle');
         const nav = document.getElementById('primaryNav');
-        const themeToggle = document.getElementById('themeToggle');
-        const metaTheme = document.querySelector('meta[name="theme-color"]');
-
-        function syncThemeMeta(theme) {
-            if (metaTheme) {
-                metaTheme.setAttribute('content', theme === 'light' ? '#f5f7fb' : '#03060f');
-            }
-        }
-
-        syncThemeMeta(document.documentElement.getAttribute('data-theme') || 'dark');
-
-        if (themeToggle) {
-            themeToggle.addEventListener('click', function () {
-                const current = document.documentElement.getAttribute('data-theme') || 'dark';
-                const next = current === 'dark' ? 'light' : 'dark';
-                document.documentElement.setAttribute('data-theme', next);
-                syncThemeMeta(next);
-                try { localStorage.setItem('theme', next); } catch (e) { }
-            });
-        }
-
         if (!toggle || !nav) return;
 
         function close() {
@@ -545,7 +523,7 @@
             toggle.setAttribute('aria-label', isOpen ? 'Tutup menu navigasi' : 'Buka menu navigasi');
         });
 
-        nav.querySelectorAll('a, button:not(#themeToggle)').forEach(function (item) {
+        nav.querySelectorAll('a, button').forEach(function (item) {
             item.addEventListener('click', close);
         });
 
@@ -620,7 +598,7 @@
         initToast();
         initNavigation();
         initCounters();
-        initMobileNavAndTheme();
+        initMobileNav();
         initScrollProgress();
         initOnlineUsers();
     });
